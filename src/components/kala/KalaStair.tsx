@@ -3,10 +3,10 @@ import { ACCENT, ANTON, MONO } from "./theme";
 import KalaPhoneCard, { type PhoneCardVariant } from "./KalaPhoneCard";
 
 const STAIR: { variant: PhoneCardVariant; drop: string }[] = [
-  { variant: "antigravity", drop: "34px" },
+  { variant: "editor", drop: "34px" },
   { variant: "consola", drop: "0px" },
   { variant: "gemini", drop: "0px" },
-  { variant: "workspace", drop: "34px" },
+  { variant: "menu", drop: "34px" },
 ];
 
 export default function KalaStair() {

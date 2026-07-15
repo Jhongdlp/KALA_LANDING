@@ -68,14 +68,14 @@ const tabLabelStyle: CSSProperties = {
 };
 
 export default function KalaHero() {
-  const [tab, setTab] = useState<"conexiones" | "consola">("conexiones");
+  const [tab, setTab] = useState<"conexiones" | "consola">("consola");
 
-  // Tab cycle: conexiones → consola (3.2s) → conexiones (9s), loop every 12s
+  // Tab cycle: consola → conexiones (3.2s) → consola (9s), loop every 12s
   useEffect(() => {
     let timers: ReturnType<typeof setTimeout>[] = [];
     const startSequence = () => {
-      timers.push(setTimeout(() => setTab("consola"), 3200));
-      timers.push(setTimeout(() => setTab("conexiones"), 9000));
+      timers.push(setTimeout(() => setTab("conexiones"), 3200));
+      timers.push(setTimeout(() => setTab("consola"), 9000));
       timers.push(
         setTimeout(() => {
           timers = [];
@@ -87,7 +87,7 @@ export default function KalaHero() {
     return () => timers.forEach(clearTimeout);
   }, []);
 
-  // Scroll parallax on the headline and the phone (desktop only)
+  // Scroll parallax on the phone (desktop only)
   useEffect(() => {
     let ticking = false;
     const onScroll = () => {
@@ -96,9 +96,7 @@ export default function KalaHero() {
       requestAnimationFrame(() => {
         const y = window.scrollY || 0;
         const mobile = window.innerWidth <= 860;
-        const h = document.getElementById("kala-headline");
         const p = document.getElementById("kala-phone");
-        if (h) h.style.transform = mobile ? "" : `translateY(${y * 0.16}px)`;
         if (p) p.style.transform = mobile ? "" : `translateY(${-y * 0.07}px)`;
         ticking = false;
       });
@@ -694,7 +692,7 @@ function ConexionesScreen() {
               textOverflow: "ellipsis",
             }}
           >
-            jguadalupeandrade@63.141.255.7:22
+            jguadalupeandrade@198.51.100.7:22
           </div>
         </div>
         <div
@@ -842,7 +840,7 @@ function ConsolaScreen() {
                 lineHeight: 1.5,
               }}
             >
-              <div style={{ marginBottom: 6 }}>Welcome back catalyst!</div>
+              <div style={{ marginBottom: 6 }}>Welcome back kala!</div>
               <div style={{ display: "flex", justifyContent: "center", margin: "5px 0 9px" }}>
                 <div style={{ transformOrigin: "50% 100%", animation: "cc-rock 7s ease-in-out infinite" }}>
                   <div style={{ animation: "cc-hop 4.2s ease-in-out infinite" }}>
@@ -907,9 +905,9 @@ function ConsolaScreen() {
               </div>
               <div style={{ color: "rgba(198,140,126,.85)" }}>Haiku 4.5 · Claude Pro ·</div>
               <div style={{ color: "rgba(198,140,126,.6)", wordBreak: "break-all" }}>
-                catalystsmartflow@gmail.com&apos;s Organization
+                kala@gmail.com&apos;s Organization
               </div>
-              <div style={{ color: "rgba(198,140,126,.6)" }}>/home/jguadalupeandrade</div>
+              <div style={{ color: "rgba(198,140,126,.6)" }}>/home/kala</div>
             </div>
             <div style={{ width: 1, background: "#B57F71", flexShrink: 0 }} />
             <div style={{ flex: 1, color: "#C68C7E", fontSize: 7, lineHeight: 1.5 }}>
@@ -925,19 +923,6 @@ function ConsolaScreen() {
                 /release-notes for more
               </div>
             </div>
-          </div>
-        </div>
-        {/* warnings */}
-        <div style={{ fontSize: 7, lineHeight: 1.7, marginBottom: 11 }}>
-          <div style={{ color: "#E3B341" }}>
-            <span style={{ color: "#E3B341" }}>⚠</span>{" "}
-            <strong style={{ fontWeight: 700 }}>1 MCP server needs authentication</strong>{" "}
-            <span style={{ color: "rgba(216,210,196,.55)" }}>· run /mcp</span>
-          </div>
-          <div style={{ color: "#E3B341" }}>
-            <span style={{ color: "#E3B341" }}>⚠</span>{" "}
-            <strong style={{ fontWeight: 700 }}>Your login expires in 4 days</strong>{" "}
-            <span style={{ color: "rgba(216,210,196,.55)" }}>· run /login to renew</span>
           </div>
         </div>
         {/* extended notice */}
@@ -1157,7 +1142,7 @@ function TerminalChip() {
                 color: "rgba(245,242,232,.7)",
               }}
             >
-              CONNECTED · 63.141.255.7
+              CONNECTED · 198.51.100.7
             </span>
           </div>
           <div
