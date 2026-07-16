@@ -1,7 +1,6 @@
 import type { Metadata } from "next";
 import { Anton, Archivo, JetBrains_Mono } from "next/font/google";
 import KalaThemeProvider from "@/components/kala/KalaThemeProvider";
-import KalaHeader from "@/components/kala/KalaHeader";
 import "./globals.css";
 
 const anton = Anton({
@@ -39,10 +38,7 @@ export default function RootLayout({
       className={`${anton.variable} ${archivo.variable} ${jetbrainsMono.variable} h-full antialiased`}
     >
       <body className="min-h-full flex flex-col">
-        <KalaThemeProvider>
-          <KalaHeader />
-          {children}
-        </KalaThemeProvider>
+        <KalaThemeProvider>{children}</KalaThemeProvider>
       </body>
     </html>
   );

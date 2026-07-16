@@ -1008,8 +1008,12 @@ body {
   .kpc-dom-content {
     display: none !important;
   }
+  /* The notch is a fixed 19px tall regardless of the phone's rendered size, so at
+     this breakpoint it reaches the tab row. Offset the screenshot below it; the
+     image keeps its width and loses the same amount off the bottom. */
   .kpc-img-content {
     display: block !important;
+    top: 14px !important;
   }
 }
 @media (max-width: 420px) {
@@ -1020,11 +1024,6 @@ body {
   .k-cta > a {
     justify-content: center !important;
   }
-}
-
-/* Hide global layout header when on the screenshot page */
-body:has(#screenshot-page) header {
-  display: none !important;
 }
 
 /* Absolute reset for the body and main wrappers on screenshotting */

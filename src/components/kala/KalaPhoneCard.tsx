@@ -331,19 +331,6 @@ export default function KalaPhoneCard({ variant, hideFrame = false }: { variant:
           alt={`${variant} mockup`}
           style={{ width: "100%", height: "100%", objectFit: "cover", objectPosition: "top" }}
         />
-        {/* Cover Next.js Dev Badge "N" in bottom-left corner */}
-        <div
-          style={{
-            position: "absolute",
-            bottom: 0,
-            left: 0,
-            width: 44,
-            height: 44,
-            background: "#0B0A08",
-            zIndex: 6,
-            pointerEvents: "none",
-          }}
-        />
       </div>
       {/* home indicator */}
       {!hideFrame && (
