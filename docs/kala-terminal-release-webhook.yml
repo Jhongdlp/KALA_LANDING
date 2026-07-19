@@ -1,0 +1,27 @@
+# ─────────────────────────────────────────────────────────────────────────────
+# This workflow lives in the APP repo (Jhongdlp/KALA_Terminal), NOT the website.
+# Copy it to:  .github/workflows/notify-website.yml  in KALA_Terminal.
+#
+# It fires whenever you publish a GitHub release and pings the website's
+# revalidation endpoint, so the download button + version update within seconds.
+#
+# Setup (one time):
+#   1. Deploy the website with an env var  REVALIDATE_SECRET=<some-long-random-string>
+#   2. In KALA_Terminal → Settings → Secrets and variables → Actions, add:
+#        - Secret  REVALIDATE_SECRET  = the same string
+#        - Variable WEBSITE_URL        = https://your-kala-website.com   (no trailing slash)
+# ─────────────────────────────────────────────────────────────────────────────
+name: Notify website of new release
+
+on:
+  release:
+    types: [published]
+
+jobs:
+  revalidate:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Ping website revalidation endpoint
+        run: |
+          curl -fsS -X POST \
+            "${{ vars.WEBSITE_URL }}/api/revalidate?secret=${{ secrets.REVALIDATE_SECRET }}"

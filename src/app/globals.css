@@ -1,5 +1,8 @@
 @import "tailwindcss";
 
+html {
+  scroll-behavior: smooth;
+}
 html,
 body {
   background: #0a0908;
@@ -226,6 +229,13 @@ body {
   border-color: var(--k-toggle-hover-border);
   background: var(--k-toggle-hover-bg);
 }
+.k-star {
+  transition: border-color 0.3s ease, background 0.3s ease;
+}
+.k-star:hover {
+  border-color: var(--k-toggle-hover-border);
+  background: var(--k-toggle-hover-bg);
+}
 .k-download:hover,
 .k-ctamain:hover {
   transform: translateY(-2px);
@@ -242,6 +252,58 @@ body {
 }
 .k-menulink:hover {
   background: var(--k-menulinkhover);
+}
+
+/* download + footer */
+.kala .k-platform {
+  border: 1px solid var(--k-bentoborder);
+  transition: border-color 0.4s ease,
+    transform 0.45s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.kala .k-platform:hover {
+  border-color: var(--k-bentoborderhi);
+  transform: translateY(-4px);
+}
+.k-getbtn {
+  transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.3s ease;
+}
+.k-getbtn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 12px 32px var(--k-btnshadow);
+}
+.kala .k-althref {
+  color: var(--k-bentomuted);
+  border: 1px solid var(--k-bentoborder);
+  transition: color 0.3s ease, border-color 0.3s ease;
+}
+.kala .k-althref:hover {
+  color: var(--k-ink);
+  border-color: var(--k-sechoverborder);
+}
+.kala .k-footlink {
+  color: var(--k-navtext);
+  transition: color 0.3s ease;
+}
+.kala .k-footlink:hover {
+  color: var(--k-ink-hover);
+}
+.kala .k-social {
+  color: var(--k-ink);
+  border: 1px solid var(--k-toggle-border);
+  transition: color 0.3s ease, border-color 0.3s ease, background 0.3s ease,
+    transform 0.3s ease;
+}
+.kala .k-social:hover {
+  border-color: var(--k-toggle-hover-border);
+  background: var(--k-toggle-hover-bg);
+  transform: translateY(-2px);
+}
+.kala .k-faqq {
+  color: var(--k-ink);
+  transition: color 0.3s ease;
+}
+.k-faqbtn:hover .k-faqq {
+  color: var(--k-ink-hover);
 }
 
 /* stair cards */
@@ -889,6 +951,9 @@ body {
     display: none !important;
   }
   .k-download {
+    display: none !important;
+  }
+  .k-star {
     display: none !important;
   }
   .k-hamburger {

@@ -2,6 +2,7 @@
 
 import { CSSProperties, useEffect, useState } from "react";
 import { ACCENT, ANTON, ARCHIVO, MONO } from "./theme";
+import { REPO_URL } from "@/lib/github";
 
 const LINE1 = "INFRASTRUCTURE";
 const LINE2 = "ANYWHERE";
@@ -178,7 +179,7 @@ export default function KalaHero() {
             >
               <a
                 className="k-ctamain"
-                href="#"
+                href="#download"
                 style={{
                   display: "inline-flex",
                   alignItems: "center",
@@ -199,7 +200,9 @@ export default function KalaHero() {
               </a>
               <a
                 className="k-ctasec"
-                href="#"
+                href={REPO_URL}
+                target="_blank"
+                rel="noopener noreferrer"
                 style={{
                   display: "inline-flex",
                   alignItems: "center",

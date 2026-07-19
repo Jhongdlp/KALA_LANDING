@@ -3,10 +3,21 @@
 import { useState } from "react";
 import { ACCENT, MONO } from "./theme";
 import { useKalaTheme } from "./KalaThemeProvider";
+import { REPO_URL } from "@/lib/github";
 
 const NAV_LINKS = ["Workspace", "Terminal", "Docs", "Github"];
 
-export default function KalaHeader() {
+function navHref(link: string) {
+  return link === "Github" ? REPO_URL : "#";
+}
+
+function formatStars(n: number): string {
+  if (n >= 10000) return `${Math.round(n / 1000)}k`;
+  if (n >= 1000) return `${(n / 1000).toFixed(1)}k`;
+  return String(n);
+}
+
+export default function KalaHeader({ stars }: { stars?: number | null }) {
   const { theme, toggleTheme } = useKalaTheme();
   const [menuOpen, setMenuOpen] = useState(false);
   const isLight = theme === "light";
@@ -64,13 +75,55 @@ export default function KalaHeader() {
             color: "var(--k-navtext)",
           }}
         >
-          {NAV_LINKS.map((link) => (
-            <a key={link} className="navlink" href="#" style={{ color: "inherit" }}>
-              {link}
-            </a>
-          ))}
+          {NAV_LINKS.map((link) => {
+            const external = link === "Github";
+            return (
+              <a
+                key={link}
+                className="navlink"
+                href={navHref(link)}
+                style={{ color: "inherit" }}
+                {...(external
+                  ? { target: "_blank", rel: "noopener noreferrer" }
+                  : {})}
+              >
+                {link}
+              </a>
+            );
+          })}
         </nav>
         <div style={{ display: "flex", alignItems: "center", gap: 14 }}>
+          <a
+            className="k-star"
+            href={REPO_URL}
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label="Star KALA on GitHub"
+            style={{
+              display: "flex",
+              alignItems: "center",
+              gap: 8,
+              height: 38,
+              padding: "0 14px",
+              background: "transparent",
+              border: "1px solid var(--k-toggle-border)",
+              borderRadius: 2,
+              fontFamily: MONO,
+              fontSize: 11.5,
+              letterSpacing: ".14em",
+              textTransform: "uppercase",
+              color: "var(--k-ink)",
+              whiteSpace: "nowrap",
+            }}
+          >
+            <StarIcon />
+            Star
+            {stars != null && (
+              <span style={{ color: "var(--k-navtext)", letterSpacing: ".08em" }}>
+                {formatStars(stars)}
+              </span>
+            )}
+          </a>
           <button
             className="k-themebtn"
             onClick={toggleTheme}
@@ -112,7 +165,7 @@ export default function KalaHeader() {
           </button>
           <a
             className="k-download"
-            href="#"
+            href="#download"
             style={{
               fontFamily: MONO,
               fontSize: 11.5,
@@ -176,27 +229,33 @@ export default function KalaHeader() {
           boxShadow: "0 34px 70px -22px var(--k-menushadow)",
         }}
       >
-        {NAV_LINKS.map((link) => (
-          <a
-            key={link}
-            className="k-menulink"
-            href="#"
-            onClick={closeMenu}
-            style={{
-              fontFamily: MONO,
-              fontSize: 12,
-              letterSpacing: ".22em",
-              textTransform: "uppercase",
-              color: "var(--k-menulinktext)",
-              padding: "15px 12px",
-              borderRadius: 8,
-            }}
-          >
-            {link}
-          </a>
-        ))}
+        {NAV_LINKS.map((link) => {
+          const external = link === "Github";
+          return (
+            <a
+              key={link}
+              className="k-menulink"
+              href={navHref(link)}
+              onClick={closeMenu}
+              {...(external
+                ? { target: "_blank", rel: "noopener noreferrer" }
+                : {})}
+              style={{
+                fontFamily: MONO,
+                fontSize: 12,
+                letterSpacing: ".22em",
+                textTransform: "uppercase",
+                color: "var(--k-menulinktext)",
+                padding: "15px 12px",
+                borderRadius: 8,
+              }}
+            >
+              {link}
+            </a>
+          );
+        })}
         <a
-          href="#"
+          href="#download"
           onClick={closeMenu}
           style={{
             marginTop: 8,
@@ -215,5 +274,13 @@ export default function KalaHeader() {
         </a>
       </div>
     </div>
+  );
+}
+
+function StarIcon() {
+  return (
+    <svg width="14" height="14" viewBox="0 0 24 24" fill={ACCENT} aria-hidden="true">
+      <path d="M12 2.2l2.9 6.28 6.9.67-5.19 4.57 1.53 6.79L12 18.56 5.86 21.3l1.53-6.79L2.2 9.15l6.9-.67L12 2.2Z" />
+    </svg>
   );
 }
