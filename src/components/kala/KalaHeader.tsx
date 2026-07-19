@@ -1,15 +1,13 @@
 "use client";
 
-import { useState } from "react";
-import { ACCENT, MONO } from "./theme";
+import { useEffect, useState } from "react";
+import { MONO } from "./theme";
 import { useKalaTheme } from "./KalaThemeProvider";
+import KalaLogo from "./KalaLogo";
 import { REPO_URL } from "@/lib/github";
 
-const NAV_LINKS = ["Workspace", "Terminal", "Docs", "Github"];
-
-function navHref(link: string) {
-  return link === "Github" ? REPO_URL : "#";
-}
+// GitHub's gold star colour — reads as a real "star" rather than the brand green.
+const STAR_GOLD = "#E3B341";
 
 function formatStars(n: number): string {
   if (n >= 10000) return `${Math.round(n / 1000)}k`;
@@ -20,94 +18,75 @@ function formatStars(n: number): string {
 export default function KalaHeader({ stars }: { stars?: number | null }) {
   const { theme, toggleTheme } = useKalaTheme();
   const [menuOpen, setMenuOpen] = useState(false);
+  const [scrolled, setScrolled] = useState(false);
   const isLight = theme === "light";
   const closeMenu = () => setMenuOpen(false);
 
+  // Liquid-glass kicks in once the page scrolls off the hero top.
+  useEffect(() => {
+    const onScroll = () => setScrolled(window.scrollY > 8);
+    onScroll();
+    window.addEventListener("scroll", onScroll, { passive: true });
+    return () => window.removeEventListener("scroll", onScroll);
+  }, []);
+
   return (
-    <div data-menu={menuOpen ? "open" : "closed"}>
+    // `display: contents` so this wrapper generates no box — the sticky header
+    // then anchors to `.kala` (full page height) instead of this short wrapper,
+    // which is what kept it from staying pinned while scrolling.
+    <div data-menu={menuOpen ? "open" : "closed"} style={{ display: "contents" }}>
       <header
-        className="reveal"
+        className={`reveal k-header${scrolled ? " k-header-glass" : ""}`}
         style={{
           transitionDelay: ".3s",
-          position: "relative",
+          position: "sticky",
+          top: 0,
           zIndex: 40,
           display: "flex",
           alignItems: "center",
           justifyContent: "space-between",
-          padding: "26px clamp(24px,4vw,64px)",
+          padding: "18px clamp(20px,4vw,64px)",
         }}
       >
-        <div style={{ display: "flex", alignItems: "center", gap: 12 }}>
-          <div
-            style={{
-              width: 22,
-              height: 22,
-              border: "1.5px solid var(--k-ink)",
-              transform: "rotate(45deg)",
-              display: "flex",
-              alignItems: "center",
-              justifyContent: "center",
-            }}
-          >
-            <div style={{ width: 6, height: 6, background: ACCENT }} />
-          </div>
+        <a
+          className="k-logo"
+          href="#top"
+          aria-label="KALA — inicio"
+          style={{
+            display: "flex",
+            alignItems: "center",
+            gap: 11,
+            color: "var(--k-ink)",
+          }}
+        >
+          <KalaLogo size={34} />
           <span
             style={{
               fontWeight: 800,
               letterSpacing: ".34em",
-              fontSize: 15,
+              fontSize: 16,
               paddingLeft: ".34em",
             }}
           >
             KALA
           </span>
-        </div>
-        <nav
-          className="k-nav"
-          style={{
-            display: "flex",
-            alignItems: "center",
-            gap: "clamp(22px,3vw,44px)",
-            fontFamily: MONO,
-            fontSize: 11.5,
-            letterSpacing: ".22em",
-            textTransform: "uppercase",
-            color: "var(--k-navtext)",
-          }}
-        >
-          {NAV_LINKS.map((link) => {
-            const external = link === "Github";
-            return (
-              <a
-                key={link}
-                className="navlink"
-                href={navHref(link)}
-                style={{ color: "inherit" }}
-                {...(external
-                  ? { target: "_blank", rel: "noopener noreferrer" }
-                  : {})}
-              >
-                {link}
-              </a>
-            );
-          })}
-        </nav>
-        <div style={{ display: "flex", alignItems: "center", gap: 14 }}>
+        </a>
+        <div style={{ display: "flex", alignItems: "center", gap: 12 }}>
           <a
             className="k-star"
             href={REPO_URL}
             target="_blank"
             rel="noopener noreferrer"
-            aria-label="Star KALA on GitHub"
+            aria-label="Dar star a KALA en GitHub"
             style={{
               display: "flex",
               alignItems: "center",
-              gap: 8,
+              gap: 9,
               height: 38,
               padding: "0 14px",
               background: "transparent",
               border: "1px solid var(--k-toggle-border)",
-              borderRadius: 2,
+              borderRadius: 8,
               fontFamily: MONO,
               fontSize: 11.5,
               letterSpacing: ".14em",
@@ -116,14 +95,45 @@ export default function KalaHeader({ stars }: { stars?: number | null }) {
               whiteSpace: "nowrap",
             }}
           >
-            <StarIcon />
-            Star
+            <GithubIcon />
+            <span>Star</span>
             {stars != null && (
-              <span style={{ color: "var(--k-navtext)", letterSpacing: ".08em" }}>
-                {formatStars(stars)}
-              </span>
+              <>
+                <span className="k-star-divider" />
+                <span
+                  style={{
+                    display: "flex",
+                    alignItems: "center",
+                    gap: 4,
+                    color: "var(--k-navtext)",
+                    letterSpacing: ".08em",
+                  }}
+                >
+                  <StarIcon />
+                  {formatStars(stars)}
+                </span>
+              </>
             )}
           </a>
+          <a
+            className="k-download"
+            href="#download"
+            style={{
+              fontFamily: MONO,
+              fontSize: 11.5,
+              letterSpacing: ".2em",
+              textTransform: "uppercase",
+              color: "var(--k-btntext)",
+              background: "var(--k-btnbg)",
+              padding: "11px 20px",
+              borderRadius: 8,
+              transition:
+                "transform .3s cubic-bezier(.16,1,.3,1), box-shadow .3s ease",
+            }}
+          >
+            Download
+          </a>
+          <span className="k-vdivider" />
           <button
             className="k-themebtn"
             onClick={toggleTheme}
@@ -137,7 +147,7 @@ export default function KalaHeader({ stars }: { stars?: number | null }) {
               height: 38,
               background: "transparent",
               border: "1px solid var(--k-toggle-border)",
-              borderRadius: 2,
+              borderRadius: 8,
               color: "var(--k-ink)",
               cursor: "pointer",
             }}
@@ -163,24 +173,6 @@ export default function KalaHeader({ stars }: { stars?: number | null }) {
               </svg>
             )}
           </button>
-          <a
-            className="k-download"
-            href="#download"
-            style={{
-              fontFamily: MONO,
-              fontSize: 11.5,
-              letterSpacing: ".2em",
-              textTransform: "uppercase",
-              color: "var(--k-btntext)",
-              background: "var(--k-btnbg)",
-              padding: "11px 20px",
-              borderRadius: 2,
-              transition:
-                "transform .3s cubic-bezier(.16,1,.3,1), box-shadow .3s ease",
-            }}
-          >
-            Download
-          </a>
         </div>
         <button
           className="k-hamburger k-ham"
@@ -195,7 +187,7 @@ export default function KalaHeader({ stars }: { stars?: number | null }) {
             padding: "0 10px",
             background: "transparent",
             border: "1px solid var(--k-hamborder)",
-            borderRadius: 4,
+            borderRadius: 8,
             cursor: "pointer",
           }}
         >
@@ -215,7 +207,7 @@ export default function KalaHeader({ stars }: { stars?: number | null }) {
         className="k-menu"
         style={{
           position: "fixed",
-          top: 80,
+          top: 78,
           left: 14,
           right: 14,
           zIndex: 50,
@@ -229,31 +221,29 @@ export default function KalaHeader({ stars }: { stars?: number | null }) {
           boxShadow: "0 34px 70px -22px var(--k-menushadow)",
         }}
       >
-        {NAV_LINKS.map((link) => {
-          const external = link === "Github";
-          return (
-            <a
-              key={link}
-              className="k-menulink"
-              href={navHref(link)}
-              onClick={closeMenu}
-              {...(external
-                ? { target: "_blank", rel: "noopener noreferrer" }
-                : {})}
-              style={{
-                fontFamily: MONO,
-                fontSize: 12,
-                letterSpacing: ".22em",
-                textTransform: "uppercase",
-                color: "var(--k-menulinktext)",
-                padding: "15px 12px",
-                borderRadius: 8,
-              }}
-            >
-              {link}
-            </a>
-          );
-        })}
+        <a
+          className="k-menulink"
+          href={REPO_URL}
+          onClick={closeMenu}
+          target="_blank"
+          rel="noopener noreferrer"
+          style={{
+            display: "flex",
+            alignItems: "center",
+            gap: 10,
+            fontFamily: MONO,
+            fontSize: 12,
+            letterSpacing: ".22em",
+            textTransform: "uppercase",
+            color: "var(--k-menulinktext)",
+            padding: "15px 12px",
+            borderRadius: 8,
+          }}
+        >
+          <GithubIcon />
+          <span>Star on GitHub</span>
+          <StarIcon />
+        </a>
         <a
           href="#download"
           onClick={closeMenu}
@@ -267,7 +257,7 @@ export default function KalaHeader({ stars }: { stars?: number | null }) {
             color: "var(--k-btntext)",
             background: "var(--k-btnbg)",
             padding: "15px 12px",
-            borderRadius: 4,
+            borderRadius: 8,
           }}
         >
           Download
@@ -277,9 +267,17 @@ export default function KalaHeader({ stars }: { stars?: number | null }) {
   );
 }
 
+function GithubIcon() {
+  return (
+    <svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor" aria-hidden="true">
+      <path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.01 8.01 0 0 0 16 8c0-4.42-3.58-8-8-8Z" />
+    </svg>
+  );
+}
+
 function StarIcon() {
   return (
-    <svg width="14" height="14" viewBox="0 0 24 24" fill={ACCENT} aria-hidden="true">
+    <svg width="13" height="13" viewBox="0 0 24 24" fill={STAR_GOLD} aria-hidden="true">
       <path d="M12 2.2l2.9 6.28 6.9.67-5.19 4.57 1.53 6.79L12 18.56 5.86 21.3l1.53-6.79L2.2 9.15l6.9-.67L12 2.2Z" />
     </svg>
   );

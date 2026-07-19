@@ -39,7 +39,9 @@ export default function KalaThemeProvider({
   const rootStyle: CSSProperties = {
     position: "relative",
     minHeight: "100vh",
-    overflowX: "hidden",
+    // `clip` (not `hidden`) so this root doesn't become a scroll container —
+    // otherwise it breaks `position: sticky` on the header.
+    overflowX: "clip",
     background: "var(--k-bg)",
     color: "var(--k-ink)",
     transition: "background .4s ease, color .4s ease",

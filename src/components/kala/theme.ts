@@ -43,6 +43,11 @@ const LIGHT = {
   bentomuted: "rgba(42,36,27,.55)",
   bentofaint: "rgba(42,36,27,.4)",
   bentoinset: "rgba(255,255,255,.55)",
+  bentoscreenframe: "rgba(42,36,27,.42)",
+  headerglass: "rgba(233,227,211,.72)",
+  headerborder: "rgba(42,36,27,.10)",
+  headershadow: "rgba(42,36,27,.12)",
+  headerhairline: "rgba(255,255,255,.55)",
 };
 
 const DARK: typeof LIGHT = {
@@ -82,6 +87,11 @@ const DARK: typeof LIGHT = {
   bentomuted: "rgba(236,231,218,.55)",
   bentofaint: "rgba(236,231,218,.34)",
   bentoinset: "rgba(11,10,8,.55)",
+  bentoscreenframe: "rgba(236,231,218,.08)",
+  headerglass: "rgba(12,11,9,.58)",
+  headerborder: "rgba(236,231,218,.08)",
+  headershadow: "rgba(0,0,0,.45)",
+  headerhairline: "rgba(236,231,218,.10)",
 };
 
 export function themeVars(theme: ThemeName): Record<string, string> {
@@ -123,5 +133,10 @@ export function themeVars(theme: ThemeName): Record<string, string> {
     "--k-bentomuted": T.bentomuted,
     "--k-bentofaint": T.bentofaint,
     "--k-bentoinset": T.bentoinset,
+    "--k-bentoscreenframe": T.bentoscreenframe,
+    "--k-headerglass": T.headerglass,
+    "--k-headerborder": T.headerborder,
+    "--k-headershadow": T.headershadow,
+    "--k-headerhairline": T.headerhairline,
   };
 }

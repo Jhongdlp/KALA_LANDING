@@ -1,6 +1,14 @@
 import { CSSProperties } from "react";
 import { ACCENT, ANTON, ARCHIVO, MONO } from "./theme";
 
+/* The stages act as dark "device screens" in BOTH themes (matching the hero and
+   phone card). Everything inside a stage therefore uses these constant
+   light-on-dark tokens rather than theme vars, which would invert and disappear
+   on the dark screen in light mode. */
+const SCREEN_BG = "#0C0B09";
+const SCREEN_LINE = "rgba(236,231,218,.1)";
+const SCREEN_TEXT = "#ECE7DA";
+
 const cardStyle: CSSProperties = {
   position: "relative",
   display: "flex",
@@ -15,10 +23,12 @@ const stageStyle: CSSProperties = {
   flex: 1,
   position: "relative",
   margin: "16px 16px 0",
-  border: "1px solid var(--k-bentoborder)",
+  border: "1px solid var(--k-bentoscreenframe)",
   borderRadius: 12,
   overflow: "hidden",
-  background: "rgba(10,9,8,.55)",
+  background: SCREEN_BG,
+  boxShadow:
+    "inset 0 1px 0 rgba(255,255,255,.05), inset 0 0 0 1px rgba(0,0,0,.35)",
 };
 
 const kickerStyle: CSSProperties = {
@@ -105,7 +115,7 @@ export default function KalaBento() {
               marginBottom: 16,
             }}
           >
-            Bajo el capó
+            Under the hood
           </div>
           <h2
             style={{
@@ -118,9 +128,9 @@ export default function KalaBento() {
               color: "var(--k-headline)",
             }}
           >
-            Todo el flujo,
+            Your whole workflow,
             <br />
-            en un bolsillo<span style={{ color: ACCENT }}>.</span>
+            in one pocket<span style={{ color: ACCENT }}>.</span>
           </h2>
         </div>
         <p
@@ -131,8 +141,8 @@ export default function KalaBento() {
             color: "var(--k-paratext)",
           }}
         >
-          Terminal, editor remoto y visores nativos trabajando juntos sobre SSH
-          y SFTP — sin salir de la app.
+          Terminal, remote editor and native viewers working together over SSH
+          and SFTP — without ever leaving the app.
         </p>
       </div>
 
@@ -156,7 +166,7 @@ export default function KalaBento() {
   );
 }
 
-/* TARJETA 1 · CENTRO DE CONTROL DOCKER (2/3) */
+/* CARD 1 · DOCKER CONTROL CENTER (2/3) */
 function DockerCard() {
   const gaugeLabel: CSSProperties = {
     display: "flex",
@@ -186,7 +196,7 @@ function DockerCard() {
     justifyContent: "space-between",
     padding: "8px 11px",
     borderRadius: 8,
-    border: "1px solid var(--k-bentoborder)",
+    border: `1px solid ${SCREEN_LINE}`,
     background: "rgba(236,231,218,.03)",
     fontFamily: MONO,
     fontSize: 10.5,
@@ -216,7 +226,7 @@ function DockerCard() {
     </span>
   );
   return (
-    <div style={{ ...cardStyle, gridColumn: "span 4" }}>
+    <div className="k-bentocard" style={{ ...cardStyle, gridColumn: "span 4" }}>
       <div
         style={{
           ...stageStyle,
@@ -231,7 +241,7 @@ function DockerCard() {
             alignItems: "center",
             gap: 8,
             padding: "10px 13px",
-            borderBottom: "1px solid var(--k-bentoborder)",
+            borderBottom: `1px solid ${SCREEN_LINE}`,
             fontFamily: MONO,
             fontSize: 10,
             color: "rgba(236,231,218,.62)",
@@ -246,7 +256,7 @@ function DockerCard() {
               animation: "kb-live 1.8s ease-in-out infinite",
             }}
           />{" "}
-          server-ia · docker
+          ai-server · docker
         </div>
         <div style={{ flex: 1, display: "flex", flexWrap: "wrap", gap: 14, padding: "14px 15px" }}>
           {/* gauges */}
@@ -293,7 +303,7 @@ function DockerCard() {
             </div>
             <div>
               <div style={gaugeLabel}>
-                <span>DISCO</span>
+                <span>DISK</span>
                 <span style={{ color: "#ECE7DA" }}>31%</span>
               </div>
               <div style={gaugeTrack}>
@@ -411,15 +421,15 @@ function DockerCard() {
       <CardText
         large
         maxWidth={480}
-        kicker="Docker · Recursos"
-        title="Centro de control Docker"
-        body="Control total de tus contenedores. Monitorea recursos, visualiza logs de Docker Compose y gestiona tus servicios directamente con toques táctiles, sin escribir líneas de comandos complejas."
+        kicker="Docker · Resources"
+        title="Docker control center"
+        body="Full control over your containers. Monitor resources, watch Docker Compose logs and manage your services with a tap — no complex commands to type."
       />
     </div>
   );
 }
 
-/* TARJETA 2 · PESTAÑAS MULTI-SESIÓN SSH (1/3) */
+/* CARD 2 · MULTI-SESSION SSH TABS (1/3) */
 function SshTabsCard() {
   const tabStyle: CSSProperties = {
     position: "relative",
@@ -443,7 +453,7 @@ function SshTabsCard() {
     animationDelay: delay,
   });
   return (
-    <div style={{ ...cardStyle, gridColumn: "span 2" }}>
+    <div className="k-bentocard" style={{ ...cardStyle, gridColumn: "span 2" }}>
       <div
         style={{
           ...stageStyle,
@@ -456,20 +466,20 @@ function SshTabsCard() {
           style={{
             display: "flex",
             alignItems: "stretch",
-            borderBottom: "1px solid var(--k-bentoborder)",
+            borderBottom: `1px solid ${SCREEN_LINE}`,
             fontFamily: MONO,
           }}
         >
           <div style={{ ...tabStyle, animation: "kb-tt1 9s ease-in-out infinite" }}>
-            vps-servidor
+            vps-server
             <div style={{ ...tabLine, animation: "kb-t1 9s ease-in-out infinite" }} />
           </div>
           <div style={{ ...tabStyle, animation: "kb-tt2 9s ease-in-out infinite" }}>
-            logs-agente
+            agent-logs
             <div style={{ ...tabLine, opacity: 0, animation: "kb-t2 9s ease-in-out infinite" }} />
           </div>
           <div style={{ ...tabStyle, animation: "kb-tt3 9s ease-in-out infinite" }}>
-            db-produccion
+            db-production
             <div style={{ ...tabLine, opacity: 0, animation: "kb-t3 9s ease-in-out infinite" }} />
           </div>
         </div>
@@ -483,7 +493,7 @@ function SshTabsCard() {
             lineHeight: 1.8,
           }}
         >
-          {/* vps-servidor */}
+          {/* vps-server */}
           <div
             style={{
               position: "absolute",
@@ -494,7 +504,7 @@ function SshTabsCard() {
           >
             <div>
               <span style={{ color: ACCENT }}>›</span>{" "}
-              <span style={{ color: "#ECE7DA" }}>ssh vps-servidor</span>
+              <span style={{ color: "#ECE7DA" }}>ssh vps-server</span>
             </div>
             <div style={{ color: "rgba(236,231,218,.4)" }}>· uptime 14d · load 0.42</div>
             <div style={{ display: "flex", alignItems: "flex-end", gap: 2, height: 20, marginTop: 6 }}>
@@ -538,7 +548,7 @@ function SshTabsCard() {
               />
             </div>
           </div>
-          {/* db-produccion */}
+          {/* db-production */}
           <div
             style={{
               position: "absolute",
@@ -570,24 +580,24 @@ function SshTabsCard() {
         </div>
       </div>
       <CardText
-        kicker="SSH · Multi-sesión"
-        title="Pestañas SSH"
-        body="Abre varias conexiones SSH a la vez, renómbralas, ciérralas y salta de una a otra con un tap — igual que en tu navegador."
+        kicker="SSH · Multi-session"
+        title="SSH tabs"
+        body="Open several SSH connections at once, rename them, close them and jump between them with a tap — just like tabs in your browser."
       />
     </div>
   );
 }
 
-/* TARJETA 3 · EXPLORADOR + EDITOR SFTP (1.5/3) */
+/* CARD 3 · SFTP EXPLORER + EDITOR (1.5/3) */
 function SftpCard() {
   return (
-    <div style={{ ...cardStyle, gridColumn: "span 3" }}>
+    <div className="k-bentocard" style={{ ...cardStyle, gridColumn: "span 3" }}>
       <div style={{ ...stageStyle, minHeight: 150, display: "flex" }}>
         {/* tree */}
         <div
           style={{
             width: "38%",
-            borderRight: "1px solid var(--k-bentoborder)",
+            borderRight: `1px solid ${SCREEN_LINE}`,
             padding: "12px 10px",
             fontFamily: MONO,
             fontSize: 9.5,
@@ -718,7 +728,7 @@ function SftpCard() {
                     animation: "kb-spin .9s linear infinite",
                   }}
                 />
-                Guardando · SFTP
+                Saving · SFTP
               </span>
               <span
                 style={{
@@ -733,7 +743,7 @@ function SftpCard() {
                   animation: "kb-savedone 8s ease-in-out infinite",
                 }}
               >
-                <span>✓</span>Guardado
+                <span>✓</span>Saved
               </span>
             </div>
           </div>
@@ -777,17 +787,17 @@ function SftpCard() {
       </div>
       <CardText
         kicker="re_editor · SFTP"
-        title="Explorador y editor SFTP"
-        body="Navega el sistema de archivos de tu servidor, abre códigos fuente y edítalos con coloreado de sintaxis y autoguardado en tiempo real."
+        title="SFTP explorer & editor"
+        body="Browse your server's file system, open source files and edit them with syntax highlighting and real-time autosave."
       />
     </div>
   );
 }
 
-/* TARJETA 4 · CLIPBOARD → AGENTES IA (1.5/3) */
+/* CARD 4 · CLIPBOARD → AI AGENTS (1.5/3) */
 function ClipboardCard() {
   return (
-    <div style={{ ...cardStyle, gridColumn: "span 3" }}>
+    <div className="k-bentocard" style={{ ...cardStyle, gridColumn: "span 3" }}>
       <div
         style={{
           position: "absolute",
@@ -804,7 +814,7 @@ function ClipboardCard() {
           padding: "4px 10px",
         }}
       >
-        Para agentes IA
+        For AI agents
       </div>
       <div
         style={{
@@ -820,14 +830,14 @@ function ClipboardCard() {
             alignItems: "center",
             gap: 8,
             padding: "10px 13px",
-            borderBottom: "1px solid var(--k-bentoborder)",
+            borderBottom: `1px solid ${SCREEN_LINE}`,
             fontFamily: MONO,
             fontSize: 10,
             color: "rgba(236,231,218,.6)",
           }}
         >
           <span style={{ width: 7, height: 7, borderRadius: "50%", background: ACCENT }} />{" "}
-          logs-agente
+          agent-logs
         </div>
         <div
           style={{
@@ -853,7 +863,7 @@ function ClipboardCard() {
               <rect x="2" y="2.5" width="10" height="11" rx="1.6" stroke="currentColor" strokeWidth="1.2" />
               <rect x="5" y="1" width="4" height="2.6" rx="1" fill="currentColor" />
             </svg>
-            portapapeles
+            clipboard
           </div>
           {/* travelling pasted image + cursor */}
           <div style={{ position: "absolute", left: 14, top: 30, width: 52, height: 38 }}>
@@ -931,7 +941,7 @@ function ClipboardCard() {
                 marginBottom: 4,
               }}
             >
-              <span>↑ subiendo por SFTP</span>
+              <span>↑ uploading via SFTP</span>
               <span>scr_01.png</span>
             </div>
             <div
@@ -965,7 +975,7 @@ function ClipboardCard() {
             }}
           >
             <span style={{ color: ACCENT }}>›</span>&nbsp;
-            <span style={{ color: "#ECE7DA" }}>analiza</span>&nbsp;
+            <span style={{ color: "#ECE7DA" }}>analyze</span>&nbsp;
             <span
               style={{
                 display: "inline-block",
@@ -991,15 +1001,15 @@ function ClipboardCard() {
         </div>
       </div>
       <CardText
-        kicker="Portapapeles → Prompt"
-        title="Copiloto visual"
-        body="Pega capturas desde tu portapapeles; KALA las sube por SFTP y escribe la ruta del archivo en el prompt para que tu agente pueda analizarla."
+        kicker="Clipboard → Prompt"
+        title="Visual copilot"
+        body="Paste screenshots from your clipboard; KALA uploads them over SFTP and drops the file path into the prompt so your agent can read it."
       />
     </div>
   );
 }
 
-/* TARJETA 5 · SEGURIDAD DE GRADO HARDWARE (2/3) */
+/* CARD 5 · HARDWARE-GRADE SECURITY (2/3) */
 function SecurityCard() {
   const flowDot = (delay?: string): CSSProperties => ({
     position: "absolute",
@@ -1014,7 +1024,7 @@ function SecurityCard() {
     animationDelay: delay,
   });
   return (
-    <div style={{ ...cardStyle, gridColumn: "span 4" }}>
+    <div className="k-bentocard" style={{ ...cardStyle, gridColumn: "span 4" }}>
       <div
         style={{
           ...stageStyle,
@@ -1071,7 +1081,7 @@ function SecurityCard() {
               color: "rgba(236,231,218,.5)",
             }}
           >
-            BIOMETRÍA
+            BIOMETRICS
           </div>
         </div>
         {/* energy connector */}
@@ -1181,7 +1191,7 @@ function SecurityCard() {
               animation: "kb-badge 6s ease-in-out infinite",
             }}
           >
-            ✓ VALIDADO
+            ✓ VERIFIED
           </div>
         </div>
       </div>
@@ -1189,14 +1199,14 @@ function SecurityCard() {
         large
         maxWidth={460}
         kicker="Android Keystore · libsecret"
-        title="Seguridad de grado hardware"
-        body="Tus llaves y secretos, siempre seguros. Las contraseñas y llaves SSH se almacenan encriptadas en el almacén de hardware seguro de Android, nunca en texto plano."
+        title="Hardware-grade security"
+        body="Your keys and secrets, always safe. Passwords and SSH keys are stored encrypted in Android's secure hardware keystore, never in plain text."
       />
     </div>
   );
 }
 
-/* TARJETA 6 · VISORES INTEGRADOS (1/3) */
+/* CARD 6 · BUILT-IN VIEWERS (1/3) */
 function ViewersCard() {
   const chipStyle: CSSProperties = {
     position: "relative",
@@ -1212,7 +1222,7 @@ function ViewersCard() {
     position: "absolute",
     inset: 0,
     borderRadius: 8,
-    border: "1px solid var(--k-bentoborder)",
+    border: `1px solid ${SCREEN_LINE}`,
     background: "rgba(236,231,218,.02)",
     padding: "11px 12px",
   };
@@ -1229,7 +1239,7 @@ function ViewersCard() {
     background: bg,
   });
   return (
-    <div style={{ ...cardStyle, gridColumn: "span 2" }}>
+    <div className="k-bentocard" style={{ ...cardStyle, gridColumn: "span 2" }}>
       <div
         style={{
           ...stageStyle,
@@ -1252,7 +1262,7 @@ function ViewersCard() {
             />
             <span style={{ position: "relative", color: "#D97757" }}>PDF</span>
           </span>
-          <span style={{ ...chipStyle, border: "1px solid var(--k-bentoborderhi)" }}>
+          <span style={{ ...chipStyle, border: "1px solid rgba(236,231,218,.24)" }}>
             <span
               aria-hidden="true"
               style={{
@@ -1263,7 +1273,7 @@ function ViewersCard() {
                 animation: "kb-t2 9s ease-in-out infinite",
               }}
             />
-            <span style={{ position: "relative", color: "var(--k-ink)" }}>MD</span>
+            <span style={{ position: "relative", color: SCREEN_TEXT }}>MD</span>
           </span>
           <span style={{ ...chipStyle, border: "1px solid rgba(143,176,122,.4)" }}>
             <span
@@ -1286,7 +1296,7 @@ function ViewersCard() {
             <div style={{ display: "flex", alignItems: "center", gap: 6, marginBottom: 7 }}>
               <span style={{ width: 6, height: 6, borderRadius: "50%", background: "#D97757" }} />
               <span style={{ fontFamily: MONO, fontSize: 8, color: "rgba(236,231,218,.6)" }}>
-                informe.pdf
+                report.pdf
               </span>
             </div>
             <div style={lineBar("100%", 5)} />
@@ -1356,9 +1366,9 @@ function ViewersCard() {
         </div>
       </div>
       <CardText
-        kicker="Vista previa nativa"
-        title="Visores integrados"
-        body="Lee reportes PDF, Markdown de tus proyectos o documentos de Office sin abandonar tu flujo de trabajo."
+        kicker="Native preview"
+        title="Built-in viewers"
+        body="Read PDF reports, project Markdown or Office documents without ever leaving your workflow."
       />
     </div>
   );
