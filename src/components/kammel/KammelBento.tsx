@@ -82,7 +82,7 @@ function CardText({
   );
 }
 
-export default function KalaBento() {
+export default function KammelBento() {
   return (
     <section
       className="reveal"
@@ -1003,7 +1003,7 @@ function ClipboardCard() {
       <CardText
         kicker="Clipboard → Prompt"
         title="Visual copilot"
-        body="Paste screenshots from your clipboard; KALA uploads them over SFTP and drops the file path into the prompt so your agent can read it."
+        body="Paste screenshots from your clipboard; KAMMEL SSH uploads them over SFTP and drops the file path into the prompt so your agent can read it."
       />
     </div>
   );

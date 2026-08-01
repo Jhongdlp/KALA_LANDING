@@ -1,8 +1,8 @@
 /**
- * KALA brand mark — public/images/icon/icon.svg inlined so it inherits the
+ * KAMMEL SSH brand mark — public/images/icon/icon.svg inlined so it inherits the
  * current theme ink via `fill: currentColor`. Use everywhere the wordmark shows.
  */
-export default function KalaLogo({ size = 26 }: { size?: number }) {
+export default function KammelLogo({ size = 26 }: { size?: number }) {
   return (
     <svg
       width={size}

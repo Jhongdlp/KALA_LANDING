@@ -19,11 +19,11 @@ const ThemeContext = createContext<ThemeContextValue>({
   toggleTheme: () => {},
 });
 
-export function useKalaTheme() {
+export function useKammelTheme() {
   return useContext(ThemeContext);
 }
 
-export default function KalaThemeProvider({
+export default function KammelThemeProvider({
   children,
 }: {
   children: React.ReactNode;
@@ -55,7 +55,7 @@ export default function KalaThemeProvider({
         toggleTheme: () => setTheme((t) => (t === "dark" ? "light" : "dark")),
       }}
     >
-      <div className={inView ? "kala is-in" : "kala"} style={rootStyle}>
+      <div className={inView ? "kammel is-in" : "kammel"} style={rootStyle}>
         {children}
       </div>
     </ThemeContext.Provider>

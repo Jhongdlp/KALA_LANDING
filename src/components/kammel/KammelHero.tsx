@@ -68,7 +68,7 @@ const tabLabelStyle: CSSProperties = {
   letterSpacing: ".13em",
 };
 
-export default function KalaHero() {
+export default function KammelHero() {
   const [tab, setTab] = useState<"conexiones" | "consola">("consola");
 
   // Tab cycle: consola → conexiones (3.2s) → consola (9s), loop every 12s
@@ -97,7 +97,7 @@ export default function KalaHero() {
       requestAnimationFrame(() => {
         const y = window.scrollY || 0;
         const mobile = window.innerWidth <= 860;
-        const p = document.getElementById("kala-phone");
+        const p = document.getElementById("kammel-phone");
         if (p) p.style.transform = mobile ? "" : `translateY(${-y * 0.07}px)`;
         ticking = false;
       });
@@ -117,7 +117,7 @@ export default function KalaHero() {
     >
       <div style={{ position: "relative", maxWidth: "none" }}>
         <h1
-          id="kala-headline"
+          id="kammel-headline"
           className="k-headline"
           style={{ ...headlineStyle, position: "relative", zIndex: 10 }}
         >
@@ -126,7 +126,7 @@ export default function KalaHero() {
         {/* WEAVE: duplicate top line rendered IN FRONT of the phone so the type drapes over its shoulders */}
         <h1
           aria-hidden="true"
-          id="kala-headline-weave"
+          id="kammel-headline-weave"
           style={{
             ...headlineStyle,
             position: "absolute",
@@ -196,7 +196,7 @@ export default function KalaHero() {
                     "transform .3s cubic-bezier(.16,1,.3,1), box-shadow .3s ease",
                 }}
               >
-                Get KALA <span style={{ fontSize: 13 }}>→</span>
+                Get KAMMEL SSH <span style={{ fontSize: 13 }}>→</span>
               </a>
               <a
                 className="k-ctasec"
@@ -256,7 +256,7 @@ export default function KalaHero() {
             }}
           >
             <div
-              id="kala-phone"
+              id="kammel-phone"
               className="k-phone"
               style={{
                 position: "relative",
@@ -597,7 +597,7 @@ function ConexionesScreen() {
           marginBottom: 5,
         }}
       >
-        KALA
+        KAMMEL SSH
       </div>
       <div
         style={{
@@ -843,7 +843,7 @@ function ConsolaScreen() {
                 lineHeight: 1.5,
               }}
             >
-              <div style={{ marginBottom: 6 }}>Welcome back kala!</div>
+              <div style={{ marginBottom: 6 }}>Welcome back kammel!</div>
               <div style={{ display: "flex", justifyContent: "center", margin: "5px 0 9px" }}>
                 <div style={{ transformOrigin: "50% 100%", animation: "cc-rock 7s ease-in-out infinite" }}>
                   <div style={{ animation: "cc-hop 4.2s ease-in-out infinite" }}>
@@ -908,9 +908,9 @@ function ConsolaScreen() {
               </div>
               <div style={{ color: "rgba(198,140,126,.85)" }}>Haiku 4.5 · Claude Pro ·</div>
               <div style={{ color: "rgba(198,140,126,.6)", wordBreak: "break-all" }}>
-                kala@gmail.com&apos;s Organization
+                kammel@gmail.com&apos;s Organization
               </div>
-              <div style={{ color: "rgba(198,140,126,.6)" }}>/home/kala</div>
+              <div style={{ color: "rgba(198,140,126,.6)" }}>/home/kammel</div>
             </div>
             <div style={{ width: 1, background: "#B57F71", flexShrink: 0 }} />
             <div style={{ flex: 1, color: "#C68C7E", fontSize: 7, lineHeight: 1.5 }}>

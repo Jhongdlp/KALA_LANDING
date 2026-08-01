@@ -1,15 +1,15 @@
 # ─────────────────────────────────────────────────────────────────────────────
-# This workflow lives in the APP repo (Jhongdlp/KALA_Terminal), NOT the website.
-# Copy it to:  .github/workflows/notify-website.yml  in KALA_Terminal.
+# This workflow lives in the APP repo (Jhongdlp/KAMMEL_SSH), NOT the website.
+# Copy it to:  .github/workflows/notify-website.yml  in KAMMEL_SSH.
 #
 # It fires whenever you publish a GitHub release and pings the website's
 # revalidation endpoint, so the download button + version update within seconds.
 #
 # Setup (one time):
 #   1. Deploy the website with an env var  REVALIDATE_SECRET=<some-long-random-string>
-#   2. In KALA_Terminal → Settings → Secrets and variables → Actions, add:
+#   2. In KAMMEL_SSH → Settings → Secrets and variables → Actions, add:
 #        - Secret  REVALIDATE_SECRET  = the same string
-#        - Variable WEBSITE_URL        = https://your-kala-website.com   (no trailing slash)
+#        - Variable WEBSITE_URL        = https://your-kammel-website.com   (no trailing slash)
 # ─────────────────────────────────────────────────────────────────────────────
 name: Notify website of new release
 

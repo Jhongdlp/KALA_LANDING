@@ -1,6 +1,6 @@
 import { CSSProperties } from "react";
 import { ANTON, ARCHIVO, MONO } from "./theme";
-import KalaLogo from "./KalaLogo";
+import KammelLogo from "./KammelLogo";
 import { RELEASES_URL, REPO_URL } from "@/lib/github";
 
 const LINK_HREFS: Record<string, string> = {
@@ -68,7 +68,7 @@ const bottomLinkStyle: CSSProperties = {
   textTransform: "uppercase",
 };
 
-export default function KalaFooter() {
+export default function KammelFooter() {
   return (
     <footer
       className="reveal"
@@ -92,16 +92,16 @@ export default function KalaFooter() {
         {/* brand */}
         <div style={{ flex: "1 1 260px", maxWidth: 340 }}>
           <div style={{ display: "flex", alignItems: "center", gap: 12 }}>
-            <KalaLogo size={38} />
+            <KammelLogo size={38} />
             <span
               style={{
                 fontWeight: 800,
-                letterSpacing: ".34em",
-                fontSize: 17,
-                paddingLeft: ".34em",
+                letterSpacing: ".22em",
+                fontSize: 16,
+                paddingLeft: ".22em",
               }}
             >
-              KALA
+              KAMMEL SSH
             </span>
           </div>
           <p
@@ -172,14 +172,14 @@ export default function KalaFooter() {
             fontFamily: ANTON,
             fontWeight: 400,
             textTransform: "uppercase",
-            fontSize: "clamp(96px,24vw,340px)",
+            fontSize: "clamp(40px,9.6vw,138px)",
             letterSpacing: "-.02em",
             color: "var(--k-ink)",
             opacity: 0.06,
             userSelect: "none",
           }}
         >
-          KALA
+          KAMMEL SSH
         </span>
       </div>
 
@@ -201,7 +201,7 @@ export default function KalaFooter() {
           color: "var(--k-statstext)",
         }}
       >
-        <span>© 2026 KALA — MIT License</span>
+        <span>© 2026 KAMMEL SSH — MIT License</span>
         <div style={{ display: "flex", gap: "clamp(16px,2.4vw,28px)" }}>
           {BOTTOM_LINKS.map(({ label, href }) => (
             <a

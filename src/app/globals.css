@@ -13,39 +13,39 @@ body {
   -webkit-font-smoothing: antialiased;
 }
 
-/* ---------- KALA design (claude.ai/design · Kala Hero) ---------- */
+/* ---------- KAMMEL design (claude.ai/design · Kammel Hero) ---------- */
 
-.kala a {
+.kammel a {
   color: var(--k-ink);
   text-decoration: none;
 }
-.kala a:hover {
+.kammel a:hover {
   color: var(--k-ink-hover);
 }
-.kala ::selection {
+.kammel ::selection {
   background: var(--k-selbg);
   color: var(--k-seltext);
 }
 
-.kala .reveal {
+.kammel .reveal {
   opacity: 0;
   transform: translateY(24px);
   transition: opacity 1s cubic-bezier(0.16, 1, 0.3, 1),
     transform 1.15s cubic-bezier(0.16, 1, 0.3, 1);
 }
-.kala.is-in .reveal {
+.kammel.is-in .reveal {
   opacity: 1;
   transform: none;
 }
 
 /* sticky liquid-glass header */
-.kala .k-header {
+.kammel .k-header {
   border-bottom: 1px solid transparent;
   transition: opacity 1s cubic-bezier(0.16, 1, 0.3, 1),
     transform 1.15s cubic-bezier(0.16, 1, 0.3, 1), background 0.4s ease,
     backdrop-filter 0.4s ease, border-color 0.4s ease, box-shadow 0.4s ease;
 }
-.kala .k-header-glass {
+.kammel .k-header-glass {
   background: var(--k-headerglass);
   -webkit-backdrop-filter: blur(18px) saturate(180%);
   backdrop-filter: blur(18px) saturate(180%);
@@ -72,17 +72,17 @@ body {
   border-radius: 1px;
   background: var(--k-toggle-border);
 }
-.kala .lmask {
+.kammel .lmask {
   display: block;
   overflow: hidden;
   white-space: nowrap;
 }
-.kala .lmask > span {
+.kammel .lmask > span {
   display: block;
   transform: translateY(116%);
   transition: transform 1.15s cubic-bezier(0.16, 1, 0.3, 1);
 }
-.kala.is-in .lmask > span {
+.kammel.is-in .lmask > span {
   transform: translateY(0);
 }
 
@@ -290,12 +290,12 @@ body {
 }
 
 /* download + footer */
-.kala .k-platform {
+.kammel .k-platform {
   border: 1px solid var(--k-bentoborder);
   transition: border-color 0.4s ease,
     transform 0.45s cubic-bezier(0.16, 1, 0.3, 1);
 }
-.kala .k-platform:hover {
+.kammel .k-platform:hover {
   border-color: var(--k-bentoborderhi);
   transform: translateY(-4px);
 }
@@ -306,34 +306,34 @@ body {
   transform: translateY(-2px);
   box-shadow: 0 12px 32px var(--k-btnshadow);
 }
-.kala .k-althref {
+.kammel .k-althref {
   color: var(--k-bentomuted);
   border: 1px solid var(--k-bentoborder);
   transition: color 0.3s ease, border-color 0.3s ease;
 }
-.kala .k-althref:hover {
+.kammel .k-althref:hover {
   color: var(--k-ink);
   border-color: var(--k-sechoverborder);
 }
-.kala .k-footlink {
+.kammel .k-footlink {
   color: var(--k-navtext);
   transition: color 0.3s ease;
 }
-.kala .k-footlink:hover {
+.kammel .k-footlink:hover {
   color: var(--k-ink-hover);
 }
-.kala .k-social {
+.kammel .k-social {
   color: var(--k-ink);
   border: 1px solid var(--k-toggle-border);
   transition: color 0.3s ease, border-color 0.3s ease, background 0.3s ease,
     transform 0.3s ease;
 }
-.kala .k-social:hover {
+.kammel .k-social:hover {
   border-color: var(--k-toggle-hover-border);
   background: var(--k-toggle-hover-bg);
   transform: translateY(-2px);
 }
-.kala .k-faqq {
+.kammel .k-faqq {
   color: var(--k-ink);
   transition: color 0.3s ease;
 }
@@ -354,11 +354,11 @@ body {
 }
 
 /* bento */
-.kala .k-bentocard {
+.kammel .k-bentocard {
   transition: border-color 0.4s ease,
     transform 0.5s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.5s ease;
 }
-.kala .k-bentocard:hover {
+.kammel .k-bentocard:hover {
   border-color: var(--k-bentoborderhi);
   transform: translateY(-4px);
   box-shadow: 0 18px 40px -20px var(--k-headershadow);
@@ -880,7 +880,7 @@ body {
   }
 }
 
-/* ---------- phone card (Kala Phone Card.dc.html) ---------- */
+/* ---------- phone card (Kammel Phone Card.dc.html) ---------- */
 @keyframes kpc-blink {
   0%,
   49% {
@@ -1006,7 +1006,7 @@ body {
   .k-hamburger {
     display: flex !important;
   }
-  #kala-headline-weave {
+  #kammel-headline-weave {
     display: none !important;
   }
   .k-hero {

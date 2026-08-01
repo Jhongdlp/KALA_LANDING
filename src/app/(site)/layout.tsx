@@ -1,5 +1,5 @@
-import KalaHeader from "@/components/kala/KalaHeader";
-import KalaFooter from "@/components/kala/KalaFooter";
+import KammelHeader from "@/components/kammel/KammelHeader";
+import KammelFooter from "@/components/kammel/KammelFooter";
 import { getRepoStars } from "@/lib/github";
 
 export default async function SiteLayout({
@@ -10,9 +10,9 @@ export default async function SiteLayout({
   const stars = await getRepoStars();
   return (
     <>
-      <KalaHeader stars={stars} />
+      <KammelHeader stars={stars} />
       {children}
-      <KalaFooter />
+      <KammelFooter />
     </>
   );
 }

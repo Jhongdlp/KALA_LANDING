@@ -1,6 +1,6 @@
 import { CSSProperties } from "react";
 import { ACCENT, ANTON, MONO } from "./theme";
-import KalaPhoneCard, { type PhoneCardVariant } from "./KalaPhoneCard";
+import KammelPhoneCard, { type PhoneCardVariant } from "./KammelPhoneCard";
 
 const STAIR: { variant: PhoneCardVariant; drop: string }[] = [
   { variant: "editor", drop: "34px" },
@@ -9,7 +9,7 @@ const STAIR: { variant: PhoneCardVariant; drop: string }[] = [
   { variant: "menu", drop: "34px" },
 ];
 
-export default function KalaStair() {
+export default function KammelStair() {
   return (
     <section
       className="reveal k-stair-sec"
@@ -87,7 +87,7 @@ export default function KalaStair() {
               } as CSSProperties
             }
           >
-            <KalaPhoneCard variant={p.variant} />
+            <KammelPhoneCard variant={p.variant} />
           </div>
         ))}
       </div>

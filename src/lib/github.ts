@@ -1,7 +1,7 @@
-export const KALA_REPO =
-  process.env.NEXT_PUBLIC_KALA_REPO ?? "Jhongdlp/KALA_Terminal";
+export const KAMMEL_REPO =
+  process.env.NEXT_PUBLIC_KAMMEL_REPO ?? "Jhongdlp/KAMMEL_SSH";
 
-export const REPO_URL = `https://github.com/${KALA_REPO}`;
+export const REPO_URL = `https://github.com/${KAMMEL_REPO}`;
 export const RELEASES_URL = `${REPO_URL}/releases`;
 /** Permalink that always resolves to the newest release's APK, even without the API. */
 export const LATEST_APK_URL = `${REPO_URL}/releases/latest/download/app-release.apk`;
@@ -23,7 +23,7 @@ type GitHubAsset = { name: string; size: number; browser_download_url: string };
 export async function getLatestRelease(): Promise<LatestRelease | null> {
   try {
     const res = await fetch(
-      `https://api.github.com/repos/${KALA_REPO}/releases/latest`,
+      `https://api.github.com/repos/${KAMMEL_REPO}/releases/latest`,
       {
         headers: { Accept: "application/vnd.github+json" },
         next: { revalidate: 3600, tags: ["gh-release"] },
@@ -48,7 +48,7 @@ export async function getLatestRelease(): Promise<LatestRelease | null> {
 /** Live star count for the header button. Same hourly cache + tag as the release. */
 export async function getRepoStars(): Promise<number | null> {
   try {
-    const res = await fetch(`https://api.github.com/repos/${KALA_REPO}`, {
+    const res = await fetch(`https://api.github.com/repos/${KAMMEL_REPO}`, {
       headers: { Accept: "application/vnd.github+json" },
       next: { revalidate: 3600, tags: ["gh-release"] },
     });

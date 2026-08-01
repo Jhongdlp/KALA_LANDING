@@ -71,7 +71,7 @@ const cursorStyle: CSSProperties = {
   animation: "kpc-blink 1.05s step-end infinite",
 };
 
-export default function KalaPhoneCard({ variant, hideFrame = false }: { variant: PhoneCardVariant; hideFrame?: boolean }) {
+export default function KammelPhoneCard({ variant, hideFrame = false }: { variant: PhoneCardVariant; hideFrame?: boolean }) {
   let activeTab = 0;
   if (variant === "workspace") activeTab = 0;
   else if (["consola", "antigravity", "gemini", "docker"].includes(variant)) activeTab = 1;
@@ -438,7 +438,7 @@ function WorkspaceScreen({ visible }: { visible?: boolean }) {
           marginBottom: 5,
         }}
       >
-        KALA
+        KAMMEL SSH
       </div>
       <div
         style={{
@@ -625,7 +625,7 @@ function ConsolaScreen({ visible }: { visible?: boolean }) {
           >
             Claude Code <span style={{ color: "rgba(198,140,126,.7)" }}>v2.1</span>
           </span>
-          <div style={{ marginBottom: 6 }}>Welcome back kala!</div>
+          <div style={{ marginBottom: 6 }}>Welcome back kammel!</div>
           <div style={{ display: "flex", justifyContent: "center", margin: "4px 0 8px" }}>
             <svg
               viewBox="0 0 52 40"

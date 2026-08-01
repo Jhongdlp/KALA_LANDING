@@ -2,8 +2,8 @@
 
 import { useEffect, useState } from "react";
 import { MONO } from "./theme";
-import { useKalaTheme } from "./KalaThemeProvider";
-import KalaLogo from "./KalaLogo";
+import { useKammelTheme } from "./KammelThemeProvider";
+import KammelLogo from "./KammelLogo";
 import { REPO_URL } from "@/lib/github";
 
 // GitHub's gold star colour — reads as a real "star" rather than the brand green.
@@ -15,8 +15,8 @@ function formatStars(n: number): string {
   return String(n);
 }
 
-export default function KalaHeader({ stars }: { stars?: number | null }) {
-  const { theme, toggleTheme } = useKalaTheme();
+export default function KammelHeader({ stars }: { stars?: number | null }) {
+  const { theme, toggleTheme } = useKammelTheme();
   const [menuOpen, setMenuOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const isLight = theme === "light";
@@ -32,7 +32,7 @@ export default function KalaHeader({ stars }: { stars?: number | null }) {
 
   return (
     // `display: contents` so this wrapper generates no box — the sticky header
-    // then anchors to `.kala` (full page height) instead of this short wrapper,
+    // then anchors to `.kammel` (full page height) instead of this short wrapper,
     // which is what kept it from staying pinned while scrolling.
     <div data-menu={menuOpen ? "open" : "closed"} style={{ display: "contents" }}>
       <header
@@ -51,7 +51,7 @@ export default function KalaHeader({ stars }: { stars?: number | null }) {
         <a
           className="k-logo"
           href="#top"
-          aria-label="KALA — inicio"
+          aria-label="KAMMEL SSH — inicio"
           style={{
             display: "flex",
             alignItems: "center",
@@ -59,16 +59,16 @@ export default function KalaHeader({ stars }: { stars?: number | null }) {
             color: "var(--k-ink)",
           }}
         >
-          <KalaLogo size={34} />
+          <KammelLogo size={34} />
           <span
             style={{
               fontWeight: 800,
-              letterSpacing: ".34em",
-              fontSize: 16,
-              paddingLeft: ".34em",
+              letterSpacing: ".22em",
+              fontSize: 15,
+              paddingLeft: ".22em",
             }}
           >
-            KALA
+            KAMMEL SSH
           </span>
         </a>
         <div style={{ display: "flex", alignItems: "center", gap: 12 }}>
@@ -77,7 +77,7 @@ export default function KalaHeader({ stars }: { stars?: number | null }) {
             href={REPO_URL}
             target="_blank"
             rel="noopener noreferrer"
-            aria-label="Dar star a KALA en GitHub"
+            aria-label="Dar star a KAMMEL SSH en GitHub"
             style={{
               display: "flex",
               alignItems: "center",

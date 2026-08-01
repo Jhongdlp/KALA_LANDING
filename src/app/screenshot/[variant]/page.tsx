@@ -1,4 +1,4 @@
-import KalaPhoneCard, { type PhoneCardVariant } from "@/components/kala/KalaPhoneCard";
+import KammelPhoneCard, { type PhoneCardVariant } from "@/components/kammel/KammelPhoneCard";
 
 const VARIANTS: PhoneCardVariant[] = [
   "workspace",
@@ -33,7 +33,7 @@ export default async function ScreenshotPage({
         position: "relative",
       }}
     >
-      <KalaPhoneCard variant={variant as PhoneCardVariant} hideFrame={true} />
+      <KammelPhoneCard variant={variant as PhoneCardVariant} hideFrame={true} />
     </div>
   );
 }

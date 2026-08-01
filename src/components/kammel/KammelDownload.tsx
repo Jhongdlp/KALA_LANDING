@@ -54,7 +54,7 @@ type Platform = {
   alts?: { label: string; href: string }[];
 };
 
-export default async function KalaDownload() {
+export default async function KammelDownload() {
   const release = await getLatestRelease();
   const apkUrl = release?.apkUrl ?? LATEST_APK_URL;
   const releasesUrl = release?.releasesUrl ?? RELEASES_URL;

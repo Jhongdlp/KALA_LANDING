@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import { Anton, Archivo, JetBrains_Mono } from "next/font/google";
-import KalaThemeProvider from "@/components/kala/KalaThemeProvider";
+import KammelThemeProvider from "@/components/kammel/KammelThemeProvider";
 import "./globals.css";
 
 const anton = Anton({
@@ -22,7 +22,7 @@ const jetbrainsMono = JetBrains_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "KALA — Infrastructure. Anywhere.",
+  title: "KAMMEL SSH — Infrastructure. Anywhere.",
   description:
     "An open-source, mobile-first workspace for developers. SSH client, terminal, file explorer and code editor — one Flutter app for Android and Linux.",
 };
@@ -38,7 +38,7 @@ export default function RootLayout({
       className={`${anton.variable} ${archivo.variable} ${jetbrainsMono.variable} h-full antialiased`}
     >
       <body className="min-h-full flex flex-col">
-        <KalaThemeProvider>{children}</KalaThemeProvider>
+        <KammelThemeProvider>{children}</KammelThemeProvider>
       </body>
     </html>
   );

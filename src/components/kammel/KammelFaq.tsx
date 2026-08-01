@@ -5,12 +5,12 @@ import { ACCENT, ANTON, ARCHIVO, MONO } from "./theme";
 
 const FAQS: { q: string; a: string }[] = [
   {
-    q: "What is KALA?",
+    q: "What is KAMMEL SSH?",
     a: "An open-source, mobile-first workspace for developers: SSH client, terminal, file explorer and code editor bundled into a single Flutter app for Android and Linux.",
   },
   {
     q: "Is it really free?",
-    a: "Yes. KALA is free and open source under MIT and GPL. No account, no subscription, no paywalled features — you get everything by downloading the app.",
+    a: "Yes. KAMMEL SSH is free and open source under MIT and GPL. No account, no subscription, no paywalled features — you get everything by downloading the app.",
   },
   {
     q: "Which platforms are supported?",
@@ -22,7 +22,7 @@ const FAQS: { q: string; a: string }[] = [
   },
   {
     q: "Can I use it with AI coding agents?",
-    a: "Yes. Run Claude Code and other agents over SSH, paste screenshots that KALA uploads by SFTP, and drop the file path straight into the prompt so the agent can read it.",
+    a: "Yes. Run Claude Code and other agents over SSH, paste screenshots that KAMMEL SSH uploads by SFTP, and drop the file path straight into the prompt so the agent can read it.",
   },
   {
     q: "How can I contribute?",
@@ -30,7 +30,7 @@ const FAQS: { q: string; a: string }[] = [
   },
 ];
 
-export default function KalaFaq() {
+export default function KammelFaq() {
   const [open, setOpen] = useState<number | null>(0);
 
   return (

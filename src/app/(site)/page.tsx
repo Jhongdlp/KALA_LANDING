@@ -1,17 +1,17 @@
-import KalaHero from "@/components/kala/KalaHero";
-import KalaStair from "@/components/kala/KalaStair";
-import KalaBento from "@/components/kala/KalaBento";
-import KalaDownload from "@/components/kala/KalaDownload";
-import KalaFaq from "@/components/kala/KalaFaq";
+import KammelHero from "@/components/kammel/KammelHero";
+import KammelStair from "@/components/kammel/KammelStair";
+import KammelBento from "@/components/kammel/KammelBento";
+import KammelDownload from "@/components/kammel/KammelDownload";
+import KammelFaq from "@/components/kammel/KammelFaq";
 
 export default function Home() {
   return (
     <main>
-      <KalaHero />
-      <KalaStair />
-      <KalaBento />
-      <KalaDownload />
-      <KalaFaq />
+      <KammelHero />
+      <KammelStair />
+      <KammelBento />
+      <KammelDownload />
+      <KammelFaq />
     </main>
   );
 }
