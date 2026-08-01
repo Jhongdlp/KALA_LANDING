@@ -597,7 +597,7 @@ function ConexionesScreen() {
           marginBottom: 5,
         }}
       >
-        KAMMEL SSH
+        KAMMEL
       </div>
       <div
         style={{

@@ -92,7 +92,7 @@ export default function KammelFooter() {
         {/* brand */}
         <div style={{ flex: "1 1 260px", maxWidth: 340 }}>
           <div style={{ display: "flex", alignItems: "center", gap: 12 }}>
-            <KammelLogo size={38} />
+            <KammelLogo size={32} />
             <span
               style={{
                 fontWeight: 800,
@@ -101,7 +101,7 @@ export default function KammelFooter() {
                 paddingLeft: ".22em",
               }}
             >
-              KAMMEL SSH
+              KAMMEL
             </span>
           </div>
           <p
@@ -179,7 +179,7 @@ export default function KammelFooter() {
             userSelect: "none",
           }}
         >
-          KAMMEL SSH
+          KAMMEL
         </span>
       </div>
 
@@ -201,7 +201,7 @@ export default function KammelFooter() {
           color: "var(--k-statstext)",
         }}
       >
-        <span>© 2026 KAMMEL SSH — MIT License</span>
+        <span>© 2026 Kammel — MIT License</span>
         <div style={{ display: "flex", gap: "clamp(16px,2.4vw,28px)" }}>
           {BOTTOM_LINKS.map(({ label, href }) => (
             <a

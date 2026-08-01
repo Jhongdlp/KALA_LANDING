@@ -1003,7 +1003,7 @@ function ClipboardCard() {
       <CardText
         kicker="Clipboard → Prompt"
         title="Visual copilot"
-        body="Paste screenshots from your clipboard; KAMMEL SSH uploads them over SFTP and drops the file path into the prompt so your agent can read it."
+        body="Paste screenshots from your clipboard; Kammel uploads them over SFTP and drops the file path into the prompt so your agent can read it."
       />
     </div>
   );

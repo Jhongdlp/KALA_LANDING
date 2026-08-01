@@ -22,7 +22,7 @@ const jetbrainsMono = JetBrains_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "KAMMEL SSH — Infrastructure. Anywhere.",
+  title: "Kammel — Infrastructure. Anywhere.",
   description:
     "An open-source, mobile-first workspace for developers. SSH client, terminal, file explorer and code editor — one Flutter app for Android and Linux.",
 };

@@ -438,7 +438,7 @@ function WorkspaceScreen({ visible }: { visible?: boolean }) {
           marginBottom: 5,
         }}
       >
-        KAMMEL SSH
+        KAMMEL
       </div>
       <div
         style={{

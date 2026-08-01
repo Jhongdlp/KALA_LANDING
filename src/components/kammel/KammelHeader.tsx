@@ -51,7 +51,7 @@ export default function KammelHeader({ stars }: { stars?: number | null }) {
         <a
           className="k-logo"
           href="#top"
-          aria-label="KAMMEL SSH — inicio"
+          aria-label="Kammel — inicio"
           style={{
             display: "flex",
             alignItems: "center",
@@ -59,7 +59,7 @@ export default function KammelHeader({ stars }: { stars?: number | null }) {
             color: "var(--k-ink)",
           }}
         >
-          <KammelLogo size={34} />
+          <KammelLogo size={30} />
           <span
             style={{
               fontWeight: 800,
@@ -68,7 +68,7 @@ export default function KammelHeader({ stars }: { stars?: number | null }) {
               paddingLeft: ".22em",
             }}
           >
-            KAMMEL SSH
+            KAMMEL
           </span>
         </a>
         <div style={{ display: "flex", alignItems: "center", gap: 12 }}>
@@ -77,7 +77,7 @@ export default function KammelHeader({ stars }: { stars?: number | null }) {
             href={REPO_URL}
             target="_blank"
             rel="noopener noreferrer"
-            aria-label="Dar star a KAMMEL SSH en GitHub"
+            aria-label="Dar star a Kammel en GitHub"
             style={{
               display: "flex",
               alignItems: "center",
