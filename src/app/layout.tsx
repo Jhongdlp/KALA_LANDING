@@ -62,14 +62,15 @@ export const metadata: Metadata = {
     description: SITE_DESCRIPTION,
     url: "/",
     locale: "en_US",
-    // og:image comes from app/opengraph-image.tsx — the file convention emits
-    // the URL, width, height and alt automatically, so nothing to sync here.
+    // og:image comes from app/opengraph-image.png — the file convention emits
+    // the URL, dimensions and the alt from opengraph-image.alt.txt, so there
+    // is nothing to sync here.
   },
   twitter: {
     card: "summary_large_image",
     title: SITE_TITLE,
     description: SITE_DESCRIPTION,
-    // Image resolved from app/twitter-image.tsx.
+    // Image resolved from app/twitter-image.png.
   },
   robots: {
     index: true,

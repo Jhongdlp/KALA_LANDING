@@ -1,0 +1,1 @@
+Kammel on four phones: SSH terminal running Claude Code, Gemini CLI on a database host, a syntax-highlighted code editor and a Docker container monitor — under the headline One app. Every flow.

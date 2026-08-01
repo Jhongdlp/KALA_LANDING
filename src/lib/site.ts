@@ -28,11 +28,8 @@ export const SITE_TITLE = "Kammel — SSH client, terminal and code editor for A
 export const SITE_DESCRIPTION =
   "Free open-source SSH client for Android and Linux. Terminal, SFTP file explorer and code editor in one mobile-first app. Run AI coding agents over SSH.";
 
-/** Shorter variant for the share card, where long lines wrap badly. */
+/** Brand tagline, used as the long name in the web app manifest. */
 export const SITE_TAGLINE = "Infrastructure. Anywhere.";
-
-export const OG_DESCRIPTION =
-  "Open-source SSH client, terminal, SFTP explorer and code editor — one app for Android and Linux.";
 
 /**
  * Not a ranking factor for Google, but still read by Bing and by the social
@@ -56,12 +53,10 @@ export const SITE_KEYWORDS = [
 export const AUTHOR_NAME = "Jhongdlp";
 export const AUTHOR_URL = "https://github.com/Jhongdlp";
 
-/** Brand palette echoed by the OG image and the browser theme colour. */
+/** Page backgrounds per theme, mirrored into themeColor and the manifest. */
 export const BRAND = {
   bgDark: "#0A0908",
   bgLight: "#E9E3D3",
-  ink: "#ECE7DA",
-  accent: "#8BA678",
 } as const;
 
 /** Absolute URL helper — `abs("/")` and `abs("")` both yield the origin. */
