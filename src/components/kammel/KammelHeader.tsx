@@ -51,7 +51,7 @@ export default function KammelHeader({ stars }: { stars?: number | null }) {
         <a
           className="k-logo"
           href="#top"
-          aria-label="Kammel — inicio"
+          aria-label="Kammel — home"
           style={{
             display: "flex",
             alignItems: "center",
@@ -77,7 +77,7 @@ export default function KammelHeader({ stars }: { stars?: number | null }) {
             href={REPO_URL}
             target="_blank"
             rel="noopener noreferrer"
-            aria-label="Dar star a Kammel en GitHub"
+            aria-label="Star Kammel on GitHub"
             style={{
               display: "flex",
               alignItems: "center",
@@ -137,8 +137,8 @@ export default function KammelHeader({ stars }: { stars?: number | null }) {
           <button
             className="k-themebtn"
             onClick={toggleTheme}
-            aria-label="Cambiar modo"
-            title="Cambiar modo"
+            aria-label="Toggle colour theme"
+            title="Toggle colour theme"
             style={{
               display: "flex",
               alignItems: "center",
@@ -177,7 +177,7 @@ export default function KammelHeader({ stars }: { stars?: number | null }) {
         <button
           className="k-hamburger k-ham"
           onClick={() => setMenuOpen((open) => !open)}
-          aria-label="Menú"
+          aria-label="Menu"
           style={{
             flexDirection: "column",
             justifyContent: "center",

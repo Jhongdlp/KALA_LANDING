@@ -1,4 +1,14 @@
+import type { Metadata } from "next";
 import KammelPhoneCard, { type PhoneCardVariant } from "@/components/kammel/KammelPhoneCard";
+
+/**
+ * Capture-only routes: a bare phone mockup with no nav and no copy. Indexed,
+ * they would compete with the home page as thin duplicates. robots.txt also
+ * disallows them, but only this meta tag can drop a URL that already got in.
+ */
+export const metadata: Metadata = {
+  robots: { index: false, follow: false, nocache: true },
+};
 
 const VARIANTS: PhoneCardVariant[] = [
   "workspace",

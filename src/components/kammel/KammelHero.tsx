@@ -123,8 +123,11 @@ export default function KammelHero() {
         >
           <HeadlineLines />
         </h1>
-        {/* WEAVE: duplicate top line rendered IN FRONT of the phone so the type drapes over its shoulders */}
-        <h1
+        {/* WEAVE: duplicate top line rendered IN FRONT of the phone so the type
+            drapes over its shoulders. Purely decorative, so it must NOT be an
+            h1 — two h1s with identical text read as a duplicated heading to
+            crawlers, which aria-hidden does not suppress. */}
+        <div
           aria-hidden="true"
           id="kammel-headline-weave"
           style={{
@@ -138,7 +141,7 @@ export default function KammelHero() {
           }}
         >
           <HeadlineLines />
-        </h1>
+        </div>
 
         {/* content row: text left · product rises into headline right */}
         <div

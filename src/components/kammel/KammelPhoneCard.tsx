@@ -11,6 +11,22 @@ export type PhoneCardVariant =
   | "editor"
   | "menu";
 
+/**
+ * Alt text for the static mobile screenshots. "<variant> mockup" described the
+ * artwork rather than the product, which tells neither a screen reader nor
+ * Google Images what the app actually does — these name the feature instead.
+ */
+const SCREEN_ALT: Record<PhoneCardVariant, string> = {
+  workspace: "Kammel workspace listing saved SSH hosts on Android",
+  consola: "Kammel terminal running a shell session over SSH on Android",
+  antigravity: "Kammel running an AI coding agent over an SSH connection",
+  gemini: "Kammel AI assistant panel answering next to a terminal session",
+  docker: "Kammel managing Docker containers on a remote host",
+  sftp: "Kammel SFTP file explorer browsing a remote filesystem",
+  editor: "Kammel code editor with syntax highlighting on a remote file",
+  menu: "Kammel navigation menu showing terminal, files and editor tools",
+};
+
 const tabItemStyle: CSSProperties = {
   display: "flex",
   flexDirection: "column",
@@ -328,7 +344,9 @@ export default function KammelPhoneCard({ variant, hideFrame = false }: { varian
       >
         <img
           src={`/images/phone-${variant}.png`}
-          alt={`${variant} mockup`}
+          alt={SCREEN_ALT[variant] ?? `Kammel ${variant} screen`}
+          loading="lazy"
+          decoding="async"
           style={{ width: "100%", height: "100%", objectFit: "cover", objectPosition: "top" }}
         />
       </div>
