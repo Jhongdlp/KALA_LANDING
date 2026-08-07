@@ -3,11 +3,12 @@
 html {
   scroll-behavior: smooth;
 }
-/* Painted behind the themed app root, so it has to match the default theme —
-   otherwise the first frame and the overscroll gutters flash the other one. */
+/* Painted behind the themed app root and in the overscroll gutters. It reads
+   the same variable as the root, so the pre-paint script's attribute flip
+   carries it too — no theme-specific literal to keep in sync. */
 html,
 body {
-  background: #e9e3d3;
+  background: var(--k-bg);
 }
 
 body {

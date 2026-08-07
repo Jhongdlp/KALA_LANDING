@@ -3,11 +3,13 @@
 import {
   CSSProperties,
   createContext,
+  useCallback,
   useContext,
   useEffect,
   useState,
+  useSyncExternalStore,
 } from "react";
-import { themeVars, type ThemeName } from "./theme";
+import { THEME_BG, THEME_KEY, type ThemeName } from "./theme";
 
 type ThemeContextValue = {
   theme: ThemeName;
@@ -15,7 +17,7 @@ type ThemeContextValue = {
 };
 
 const ThemeContext = createContext<ThemeContextValue>({
-  theme: "dark",
+  theme: "light",
   toggleTheme: () => {},
 });
 
@@ -23,16 +25,55 @@ export function useKammelTheme() {
   return useContext(ThemeContext);
 }
 
+/** Best-effort write: storage can be unavailable or full, and a lost
+ *  preference is not worth breaking the toggle over. */
+function remember(theme: ThemeName) {
+  try {
+    localStorage.setItem(THEME_KEY, theme);
+  } catch {
+    /* private mode, quota, storage disabled */
+  }
+}
+
+function paint(theme: ThemeName) {
+  document.documentElement.dataset.theme = theme;
+  document
+    .querySelector('meta[name="theme-color"]')
+    ?.setAttribute("content", THEME_BG[theme]);
+}
+
+/**
+ * The applied theme is read straight off <html>, which the pre-paint script
+ * may already have set from localStorage — the attribute is the single source
+ * of truth and React only subscribes to it.
+ *
+ * useSyncExternalStore is what makes that safe across hydration: it renders
+ * the server snapshot ("light", matching the markup Next sent) and swaps to
+ * the client one right after, with no mismatch and no state to keep in step.
+ */
+let listeners: (() => void)[] = [];
+
+function subscribe(onChange: () => void) {
+  listeners.push(onChange);
+  return () => {
+    listeners = listeners.filter((l) => l !== onChange);
+  };
+}
+
+function getSnapshot(): ThemeName {
+  return document.documentElement.dataset.theme === "dark" ? "dark" : "light";
+}
+
+function getServerSnapshot(): ThemeName {
+  return "light";
+}
+
 export default function KammelThemeProvider({
   children,
 }: {
   children: React.ReactNode;
 }) {
-  // Light is what the site opens on; the header toggle switches to dark. The
-  // OS preference is deliberately not read: the choice is the brand's, and a
-  // server-rendered default that flipped per visitor would mismatch the
-  // painted html/body background below it on the first frame.
-  const [theme, setTheme] = useState<ThemeName>("light");
+  const theme = useSyncExternalStore(subscribe, getSnapshot, getServerSnapshot);
   const [inView, setInView] = useState(false);
 
   useEffect(() => {
@@ -40,6 +81,15 @@ export default function KammelThemeProvider({
     return () => clearTimeout(t);
   }, []);
 
+  const toggleTheme = useCallback(() => {
+    const next: ThemeName = getSnapshot() === "dark" ? "light" : "dark";
+    paint(next);
+    remember(next);
+    listeners.forEach((notify) => notify());
+  }, []);
+
+  // The palette itself now lives on :root (see themeCss), so this only carries
+  // the layout the app root has always had.
   const rootStyle: CSSProperties = {
     position: "relative",
     minHeight: "100vh",
@@ -49,16 +99,10 @@ export default function KammelThemeProvider({
     background: "var(--k-bg)",
     color: "var(--k-ink)",
     transition: "background .4s ease, color .4s ease",
-    ...themeVars(theme),
   };
 
   return (
-    <ThemeContext.Provider
-      value={{
-        theme,
-        toggleTheme: () => setTheme((t) => (t === "dark" ? "light" : "dark")),
-      }}
-    >
+    <ThemeContext.Provider value={{ theme, toggleTheme }}>
       <div className={inView ? "kammel is-in" : "kammel"} style={rootStyle}>
         {children}
       </div>

@@ -1,6 +1,7 @@
 import type { Metadata, Viewport } from "next";
 import { Anton, Archivo, JetBrains_Mono } from "next/font/google";
 import KammelThemeProvider from "@/components/kammel/KammelThemeProvider";
+import { THEME_BG, THEME_KEY, themeCss } from "@/components/kammel/theme";
 import {
   AUTHOR_NAME,
   AUTHOR_URL,
@@ -94,6 +95,24 @@ export const viewport: Viewport = {
   colorScheme: "light dark",
 };
 
+/**
+ * Applies the remembered theme before the first paint.
+ *
+ * It has to be a blocking inline script in <head>: anything that waits for
+ * React would paint the server-rendered light theme first and snap to dark a
+ * frame later. Reading localStorage can throw (Safari private mode, storage
+ * disabled), and a throw here would stop the parser, so the whole thing is
+ * wrapped — a failure just leaves the light default in place.
+ *
+ * It also rewrites the theme-color meta, which is static in the document and
+ * would otherwise tint the mobile browser chrome light around a dark page.
+ */
+const THEME_BOOTSTRAP = `try{var t=localStorage.getItem(${JSON.stringify(
+  THEME_KEY,
+)});if(t==="dark"||t==="light"){document.documentElement.dataset.theme=t;var m=document.querySelector('meta[name="theme-color"]');if(m)m.setAttribute("content",t==="dark"?${JSON.stringify(
+  THEME_BG.dark,
+)}:${JSON.stringify(THEME_BG.light)});}}catch(e){}`;
+
 export default function RootLayout({
   children,
 }: Readonly<{
@@ -106,6 +125,12 @@ export default function RootLayout({
       lang="en"
       className={`${anton.variable} ${archivo.variable} ${jetbrainsMono.variable} h-full antialiased`}
     >
+      <head>
+        {/* Both palettes ship as real CSS so the theme is settled in the
+            stylesheet, not in a hydrated inline style. */}
+        <style dangerouslySetInnerHTML={{ __html: themeCss() }} />
+        <script dangerouslySetInnerHTML={{ __html: THEME_BOOTSTRAP }} />
+      </head>
       <body className="min-h-full flex flex-col">
         <KammelThemeProvider>{children}</KammelThemeProvider>
       </body>

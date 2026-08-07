@@ -94,6 +94,33 @@ const DARK: typeof LIGHT = {
   headerhairline: "rgba(236,231,218,.10)",
 };
 
+/** localStorage key holding the visitor's last toggle. */
+export const THEME_KEY = "kammel-theme";
+
+/** Page background per theme — the one value the pre-paint script needs. */
+export const THEME_BG: Record<ThemeName, string> = {
+  light: LIGHT.bg,
+  dark: DARK.bg,
+};
+
+/**
+ * Both themes as static CSS, emitted once into the document head.
+ *
+ * The variables used to be inline on the app root, which meant they could only
+ * change after React hydrated — a remembered dark theme would paint the light
+ * one first and snap. As rules on :root they are in the stylesheet before the
+ * first paint, and switching theme is a single attribute flip on <html> that a
+ * blocking script can do ahead of any rendering.
+ */
+export function themeCss(): string {
+  const decls = (theme: ThemeName) =>
+    Object.entries(themeVars(theme))
+      .map(([k, v]) => `${k}:${v}`)
+      .join(";");
+  // Light is the default, so it sits on bare :root and dark overrides it.
+  return `:root{${decls("light")}}:root[data-theme="dark"]{${decls("dark")}}`;
+}
+
 export function themeVars(theme: ThemeName): Record<string, string> {
   const T = theme === "light" ? LIGHT : DARK;
   return {
