@@ -28,7 +28,11 @@ export default function KammelThemeProvider({
 }: {
   children: React.ReactNode;
 }) {
-  const [theme, setTheme] = useState<ThemeName>("dark");
+  // Light is what the site opens on; the header toggle switches to dark. The
+  // OS preference is deliberately not read: the choice is the brand's, and a
+  // server-rendered default that flipped per visitor would mismatch the
+  // painted html/body background below it on the first frame.
+  const [theme, setTheme] = useState<ThemeName>("light");
   const [inView, setInView] = useState(false);
 
   useEffect(() => {

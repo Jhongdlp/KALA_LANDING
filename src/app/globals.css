@@ -3,9 +3,11 @@
 html {
   scroll-behavior: smooth;
 }
+/* Painted behind the themed app root, so it has to match the default theme —
+   otherwise the first frame and the overscroll gutters flash the other one. */
 html,
 body {
-  background: #0a0908;
+  background: #e9e3d3;
 }
 
 body {

@@ -87,13 +87,11 @@ export const metadata: Metadata = {
 };
 
 export const viewport: Viewport = {
-  // Matches the painted background per theme so mobile browser chrome doesn't
-  // flash a mismatched colour on load.
-  themeColor: [
-    { media: "(prefers-color-scheme: light)", color: BRAND.bgLight },
-    { media: "(prefers-color-scheme: dark)", color: BRAND.bgDark },
-  ],
-  colorScheme: "dark light",
+  // The site opens light for everyone regardless of the OS setting, so this is
+  // a single colour rather than a prefers-color-scheme pair: keying it off the
+  // OS would tint the mobile browser chrome dark around a light page.
+  themeColor: BRAND.bgLight,
+  colorScheme: "light dark",
 };
 
 export default function RootLayout({
