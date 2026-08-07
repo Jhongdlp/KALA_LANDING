@@ -1,5 +1,6 @@
 "use client";
 
+import Link from "next/link";
 import { useEffect, useState } from "react";
 import { MONO } from "./theme";
 import { useKammelTheme } from "./KammelThemeProvider";
@@ -48,9 +49,9 @@ export default function KammelHeader({ stars }: { stars?: number | null }) {
           padding: "18px clamp(20px,4vw,64px)",
         }}
       >
-        <a
+        <Link
           className="k-logo"
-          href="#top"
+          href="/"
           aria-label="Kammel — home"
           style={{
             display: "flex",
@@ -70,8 +71,16 @@ export default function KammelHeader({ stars }: { stars?: number | null }) {
           >
             KAMMEL
           </span>
-        </a>
+        </Link>
         <div style={{ display: "flex", alignItems: "center", gap: 12 }}>
+          {/* The only nav entry, so it stays text rather than a third button —
+              but at full ink weight and on the same 38px rhythm as the controls
+              beside it, with the hover treatment they already use. Muted grey
+              here read as disabled next to a filled Download. */}
+          <Link className="k-nav k-navbtn" href="/features">
+            <span aria-hidden="true" className="k-navdot" />
+            Features
+          </Link>
           <a
             className="k-star"
             href={REPO_URL}
@@ -115,9 +124,11 @@ export default function KammelHeader({ stars }: { stars?: number | null }) {
               </>
             )}
           </a>
-          <a
+          <Link
             className="k-download"
-            href="#download"
+            // Absolute, not "#download": the anchor only exists on the home
+            // page, so from /features this has to navigate there first.
+            href="/#download"
             style={{
               fontFamily: MONO,
               fontSize: 11.5,
@@ -132,7 +143,7 @@ export default function KammelHeader({ stars }: { stars?: number | null }) {
             }}
           >
             Download
-          </a>
+          </Link>
           <span className="k-vdivider" />
           <button
             className="k-themebtn"
@@ -221,6 +232,26 @@ export default function KammelHeader({ stars }: { stars?: number | null }) {
           boxShadow: "0 34px 70px -22px var(--k-menushadow)",
         }}
       >
+        <Link
+          className="k-menulink"
+          href="/features"
+          onClick={closeMenu}
+          style={{
+            display: "flex",
+            alignItems: "center",
+            gap: 10,
+            fontFamily: MONO,
+            fontSize: 12,
+            letterSpacing: ".22em",
+            textTransform: "uppercase",
+            color: "var(--k-menulinktext)",
+            padding: "15px 12px",
+            borderRadius: 8,
+          }}
+        >
+          <GridIcon />
+          <span>Features</span>
+        </Link>
         <a
           className="k-menulink"
           href={REPO_URL}
@@ -244,8 +275,8 @@ export default function KammelHeader({ stars }: { stars?: number | null }) {
           <span>Star on GitHub</span>
           <StarIcon />
         </a>
-        <a
-          href="#download"
+        <Link
+          href="/#download"
           onClick={closeMenu}
           style={{
             marginTop: 8,
@@ -261,9 +292,20 @@ export default function KammelHeader({ stars }: { stars?: number | null }) {
           }}
         >
           Download
-        </a>
+        </Link>
       </div>
     </div>
+  );
+}
+
+function GridIcon() {
+  return (
+    <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true">
+      <rect x="1.5" y="1.5" width="5.4" height="5.4" rx="1.4" stroke="currentColor" strokeWidth="1.3" />
+      <rect x="9.1" y="1.5" width="5.4" height="5.4" rx="1.4" stroke="currentColor" strokeWidth="1.3" />
+      <rect x="1.5" y="9.1" width="5.4" height="5.4" rx="1.4" stroke="currentColor" strokeWidth="1.3" />
+      <rect x="9.1" y="9.1" width="5.4" height="5.4" rx="1.4" stroke="currentColor" strokeWidth="1.3" />
+    </svg>
   );
 }
 

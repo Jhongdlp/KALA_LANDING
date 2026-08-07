@@ -1,14 +1,32 @@
+import Link from "next/link";
 import { CSSProperties } from "react";
 import { ANTON, ARCHIVO, MONO } from "./theme";
 import KammelLogo from "./KammelLogo";
 import { RELEASES_URL, REPO_URL } from "@/lib/github";
 
+/**
+ * Every destination here is a page that actually exists — checked against the
+ * repository, not assumed. Notably absent: Discussions (the feature is turned
+ * off on the repo, so the URL 404s) and a Roadmap (no milestones or project
+ * board to point at). The GitHub Releases feed *is* the changelog, so it is
+ * listed once under that name instead of twice.
+ */
 const LINK_HREFS: Record<string, string> = {
+  // Product — deep links into the feature index.
+  Features: "/features",
+  Terminal: "/features#terminal",
+  "Files & editor": "/features#files",
+  "Source control": "/features#git",
+  "Server console": "/features#server",
+  Tunnels: "/features#tunnels",
+  // Resources.
+  Docs: `${REPO_URL}#readme`,
+  Changelog: RELEASES_URL,
+  Download: "/#download",
+  // Community.
   GitHub: REPO_URL,
   Issues: `${REPO_URL}/issues`,
-  Discussions: `${REPO_URL}/discussions`,
-  Contribute: REPO_URL,
-  Releases: RELEASES_URL,
+  Contributing: `${REPO_URL}/blob/main/CONTRIBUTING.md`,
 };
 
 // Only links with a real destination survive — dead "#" entries are dropped, and
@@ -16,23 +34,32 @@ const LINK_HREFS: Record<string, string> = {
 const COLUMNS: { heading: string; links: string[] }[] = [
   {
     heading: "Product",
-    links: ["Workspace", "Terminal", "File explorer", "Code editor", "Docker"],
+    links: [
+      "Features",
+      "Terminal",
+      "Files & editor",
+      "Source control",
+      "Server console",
+      "Tunnels",
+    ],
   },
   {
     heading: "Resources",
-    links: ["Docs", "Changelog", "Roadmap", "Releases"],
+    links: ["Docs", "Changelog", "Download"],
   },
   {
     heading: "Community",
-    links: ["GitHub", "Issues", "Discussions", "Contribute"],
+    links: ["GitHub", "Issues", "Contributing"],
   },
 ].map((col) => ({ ...col, links: col.links.filter((l) => LINK_HREFS[l]) }))
   .filter((col) => col.links.length > 0);
 
-// Legal / policy links, pointed at real GitHub destinations so they actually work.
+// Legal / policy links. "Privacy" points at the security section of the feature
+// index rather than the README: that is where the actual answer lives (no
+// account, no telemetry, secrets in the device keystore).
 const BOTTOM_LINKS: { label: string; href: string }[] = [
   { label: "License", href: `${REPO_URL}/blob/main/LICENSE` },
-  { label: "Privacy", href: `${REPO_URL}#readme` },
+  { label: "Privacy", href: "/features#security" },
   { label: "Security", href: `${REPO_URL}/security` },
 ];
 
@@ -141,18 +168,32 @@ export default function KammelFooter() {
           {COLUMNS.map((col) => (
             <nav key={col.heading}>
               <div style={headingStyle}>{col.heading}</div>
-              {col.links.map((link) => (
-                <a
-                  key={link}
-                  className="k-footlink"
-                  href={LINK_HREFS[link]}
-                  style={linkStyle}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                >
-                  {link}
-                </a>
-              ))}
+              {col.links.map((link) => {
+                const href = LINK_HREFS[link];
+                // Internal routes navigate in place (and get prefetched);
+                // only the GitHub destinations open a new tab.
+                return href.startsWith("/") ? (
+                  <Link
+                    key={link}
+                    className="k-footlink"
+                    href={href}
+                    style={linkStyle}
+                  >
+                    {link}
+                  </Link>
+                ) : (
+                  <a
+                    key={link}
+                    className="k-footlink"
+                    href={href}
+                    style={linkStyle}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    {link}
+                  </a>
+                );
+              })}
             </nav>
           ))}
         </div>
@@ -203,18 +244,29 @@ export default function KammelFooter() {
       >
         <span>© 2026 Kammel — MIT License</span>
         <div style={{ display: "flex", gap: "clamp(16px,2.4vw,28px)" }}>
-          {BOTTOM_LINKS.map(({ label, href }) => (
-            <a
-              key={label}
-              className="k-footlink"
-              href={href}
-              style={bottomLinkStyle}
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              {label}
-            </a>
-          ))}
+          {BOTTOM_LINKS.map(({ label, href }) =>
+            href.startsWith("/") ? (
+              <Link
+                key={label}
+                className="k-footlink"
+                href={href}
+                style={bottomLinkStyle}
+              >
+                {label}
+              </Link>
+            ) : (
+              <a
+                key={label}
+                className="k-footlink"
+                href={href}
+                style={bottomLinkStyle}
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                {label}
+              </a>
+            ),
+          )}
         </div>
         <span>Built with Flutter</span>
       </div>

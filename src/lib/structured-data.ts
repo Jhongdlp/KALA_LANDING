@@ -7,6 +7,7 @@
  * FAQPage (expandable Q&A) off the same blob.
  */
 import { FAQS } from "./faq";
+import { FEATURE_GROUPS } from "./features";
 import { REPO_URL } from "./github";
 import {
   AUTHOR_NAME,
@@ -101,3 +102,68 @@ export function homeJsonLd() {
     ],
   };
 }
+
+/**
+ * JSON-LD for /features.
+ *
+ * The page is an index, so the useful nodes are a WebPage tied to the site, a
+ * BreadcrumbList (home → features, which is what Google renders instead of the
+ * bare URL) and one ItemList carrying every feature. The SoftwareApplication
+ * is referenced by @id rather than repeated — it is already fully described on
+ * the home page.
+ */
+export function featuresJsonLd() {
+  const url = `${SITE_URL}/features`;
+  const items = FEATURE_GROUPS.flatMap((group) =>
+    group.features.map((f) => ({
+      name: f.title,
+      description: f.body,
+      section: group.nav,
+    })),
+  );
+
+  return {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "WebPage",
+        "@id": `${url}#webpage`,
+        url,
+        name: FEATURES_TITLE,
+        description: FEATURES_DESCRIPTION,
+        inLanguage: "en",
+        isPartOf: { "@id": SITE_ID },
+        about: { "@id": APP_ID },
+        primaryImageOfPage: abs("/icon.png"),
+      },
+      {
+        "@type": "BreadcrumbList",
+        "@id": `${url}#breadcrumb`,
+        itemListElement: [
+          { "@type": "ListItem", position: 1, name: "Home", item: SITE_URL },
+          { "@type": "ListItem", position: 2, name: "Features", item: url },
+        ],
+      },
+      {
+        "@type": "ItemList",
+        "@id": `${url}#features`,
+        name: `${SITE_NAME} features`,
+        numberOfItems: items.length,
+        itemListOrder: "https://schema.org/ItemListOrderAscending",
+        itemListElement: items.map((item, i) => ({
+          "@type": "ListItem",
+          position: i + 1,
+          name: `${item.section} — ${item.name}`,
+          description: item.description,
+        })),
+      },
+    ],
+  };
+}
+
+/** Shared by the /features metadata and its WebPage node. */
+export const FEATURES_TITLE =
+  "Features — every tool inside the Kammel SSH client";
+
+export const FEATURES_DESCRIPTION =
+  "The full feature list: multi-session SSH terminal, SFTP explorer, code editor, git panel, Docker console, port forwarding, agent notifications and hardware-backed key storage.";

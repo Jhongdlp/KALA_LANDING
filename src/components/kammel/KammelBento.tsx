@@ -1,5 +1,7 @@
+import Link from "next/link";
 import { CSSProperties } from "react";
 import { ACCENT, ANTON, ARCHIVO, MONO } from "./theme";
+import { FEATURE_COUNT } from "@/lib/features";
 
 /* The stages act as dark "device screens" in BOTH themes (matching the hero and
    phone card). Everything inside a stage therefore uses these constant
@@ -133,17 +135,34 @@ export default function KammelBento() {
             in one pocket<span style={{ color: ACCENT }}>.</span>
           </h2>
         </div>
-        <p
-          style={{
-            maxWidth: 340,
-            fontSize: 15,
-            lineHeight: 1.6,
-            color: "var(--k-paratext)",
-          }}
-        >
-          Terminal, remote editor and native viewers working together over SSH
-          and SFTP — without ever leaving the app.
-        </p>
+        <div style={{ maxWidth: 340 }}>
+          <p
+            style={{
+              fontSize: 15,
+              lineHeight: 1.6,
+              color: "var(--k-paratext)",
+            }}
+          >
+            Terminal, remote editor and native viewers working together over SSH
+            and SFTP — without ever leaving the app.
+          </p>
+          {/* The six cards below are the highlights; the index has the rest. */}
+          <Link
+            className="navlink"
+            href="/features"
+            style={{
+              display: "inline-block",
+              marginTop: 18,
+              fontFamily: MONO,
+              fontSize: 11,
+              letterSpacing: ".22em",
+              textTransform: "uppercase",
+              color: "var(--k-ink)",
+            }}
+          >
+            All {FEATURE_COUNT} features →
+          </Link>
+        </div>
       </div>
 
       <div

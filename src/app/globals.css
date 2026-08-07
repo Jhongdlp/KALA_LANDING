@@ -256,6 +256,39 @@ body {
   transform: translateX(100%);
 }
 
+/* header nav link — text, not a button, but with the same height and hover
+   language as the icon controls so it stops reading as disabled label text.
+   The accent dot is the only colour it borrows, and it grows on hover. */
+.kammel .k-navbtn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  height: 38px;
+  padding: 0 13px;
+  border: 1px solid transparent;
+  border-radius: 8px;
+  font-family: var(--font-jetbrains), monospace;
+  font-size: 11.5px;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--k-ink);
+  transition: background 0.3s ease, border-color 0.3s ease;
+}
+.kammel .k-navbtn:hover {
+  background: var(--k-toggle-hover-bg);
+  border-color: var(--k-toggle-border);
+}
+.k-navdot {
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: #8ba678;
+  transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.k-navbtn:hover .k-navdot {
+  transform: scale(1.5);
+}
+
 /* hover states (style-hover in the source design) */
 .k-themebtn {
   transition: border-color 0.3s ease, background 0.3s ease;
@@ -1168,3 +1201,99 @@ body:has(#screenshot-page) .nextjs-static-indicator-wrapper {
   display: none !important;
 }
 
+
+/* ---------- features page (/features) ---------- */
+
+/* Parks 1px under the sticky header (74px tall: 18px padding + a 38px button)
+   so the two read as one bar with no seam. */
+.kf-nav {
+  top: 73px;
+}
+/* The chip rail scrolls horizontally on narrow screens; its scrollbar would
+   otherwise sit on top of the sticky bar. The mask is painted on the box, not
+   the content, so it stays pinned to the edges while the chips slide under it —
+   a chip leaving the rail fades instead of being guillotined. Where the row
+   fits, the fade lands on empty padding and is invisible. */
+.kf-rail {
+  scrollbar-width: none;
+  -webkit-mask-image: linear-gradient(
+    90deg,
+    transparent 0,
+    #000 22px,
+    #000 calc(100% - 46px),
+    transparent 100%
+  );
+  mask-image: linear-gradient(
+    90deg,
+    transparent 0,
+    #000 22px,
+    #000 calc(100% - 46px),
+    transparent 100%
+  );
+}
+.kf-rail::-webkit-scrollbar {
+  display: none;
+}
+.kf-chip {
+  transition: border-color 0.3s ease, background 0.3s ease, color 0.3s ease;
+}
+.kf-chip:hover {
+  border-color: var(--k-sechoverborder);
+}
+/* Anchor jumps must clear both sticky bars (header + section nav). */
+.kf-section {
+  scroll-margin-top: 124px;
+}
+.kf-head {
+  top: 136px;
+}
+@media (max-width: 860px) {
+  /* The hamburger is 44px, so the header grows to 80px here and the bar has to
+     follow it down or it would slide underneath. */
+  .kf-nav {
+    top: 79px;
+  }
+  /* Columns stack here, so a pinned heading would cover its own cards. */
+  .kf-head {
+    position: static !important;
+    max-width: 100% !important;
+  }
+  .kf-grid {
+    flex-basis: 100% !important;
+  }
+  .kf-section {
+    scroll-margin-top: 130px;
+  }
+}
+
+/* ---------- in practice (home) ---------- */
+
+/* The heading stays put while its four moments scroll past — the section's
+   only piece of motion, and the reason it needs no imagery to hold together. */
+.k-casehead {
+  position: sticky;
+  top: 104px;
+}
+/* The rule grows into the copy as you arrive at each moment. */
+.k-casetick {
+  transition: width 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.k-case:hover .k-casetick {
+  width: 26px;
+}
+.kammel .k-caselink {
+  color: var(--k-bentofaint);
+  transition: color 0.3s ease;
+}
+.kammel .k-caselink:hover {
+  color: var(--k-ink);
+  text-decoration: underline;
+  text-underline-offset: 4px;
+}
+@media (max-width: 860px) {
+  /* Stacked columns: a pinned heading would sit on top of its own copy. */
+  .k-casehead {
+    position: static;
+    max-width: 100% !important;
+  }
+}

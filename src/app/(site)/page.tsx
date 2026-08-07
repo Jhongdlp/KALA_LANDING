@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import KammelHero from "@/components/kammel/KammelHero";
 import KammelStair from "@/components/kammel/KammelStair";
+import KammelInPractice from "@/components/kammel/KammelInPractice";
 import KammelBento from "@/components/kammel/KammelBento";
 import KammelDownload from "@/components/kammel/KammelDownload";
 import KammelFaq from "@/components/kammel/KammelFaq";
@@ -25,6 +26,7 @@ export default function Home() {
       />
       <KammelHero />
       <KammelStair />
+      <KammelInPractice />
       <KammelBento />
       <KammelDownload />
       <KammelFaq />
