@@ -1,3 +1,4 @@
+import { Analytics } from "@vercel/analytics/next";
 import type { Metadata, Viewport } from "next";
 import { Anton, Archivo, JetBrains_Mono } from "next/font/google";
 import KammelThemeProvider from "@/components/kammel/KammelThemeProvider";
@@ -133,6 +134,10 @@ export default function RootLayout({
       </head>
       <body className="min-h-full flex flex-col">
         <KammelThemeProvider>{children}</KammelThemeProvider>
+        {/* Injects its collection script and reports page views/Web Vitals to
+            the Vercel dashboard; renders nothing, so it sits outside the
+            themed root rather than needing one. */}
+        <Analytics />
       </body>
     </html>
   );
