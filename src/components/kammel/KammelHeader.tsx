@@ -184,33 +184,37 @@ export default function KammelHeader({ stars }: { stars?: number | null }) {
               </svg>
             )}
           </button>
+          {/* Inside the controls group, not a third child of the header: with
+              `space-between` and everything else hidden on mobile, a separate
+              group left the theme button stranded mid-header instead of paired
+              with the hamburger. Hidden above 860px, so desktop is unchanged. */}
+          <button
+            className="k-hamburger k-ham"
+            onClick={() => setMenuOpen((open) => !open)}
+            aria-label="Menu"
+            style={{
+              flexDirection: "column",
+              justifyContent: "center",
+              gap: 5.5,
+              width: 44,
+              height: 44,
+              padding: "0 10px",
+              background: "transparent",
+              border: "1px solid var(--k-hamborder)",
+              borderRadius: 8,
+              cursor: "pointer",
+            }}
+          >
+            <span
+              className="k-ham1"
+              style={{ display: "block", height: 1.5, width: "100%", background: "var(--k-ink)" }}
+            />
+            <span
+              className="k-ham2"
+              style={{ display: "block", height: 1.5, width: "100%", background: "var(--k-ink)" }}
+            />
+          </button>
         </div>
-        <button
-          className="k-hamburger k-ham"
-          onClick={() => setMenuOpen((open) => !open)}
-          aria-label="Menu"
-          style={{
-            flexDirection: "column",
-            justifyContent: "center",
-            gap: 5.5,
-            width: 44,
-            height: 44,
-            padding: "0 10px",
-            background: "transparent",
-            border: "1px solid var(--k-hamborder)",
-            borderRadius: 8,
-            cursor: "pointer",
-          }}
-        >
-          <span
-            className="k-ham1"
-            style={{ display: "block", height: 1.5, width: "100%", background: "var(--k-ink)" }}
-          />
-          <span
-            className="k-ham2"
-            style={{ display: "block", height: 1.5, width: "100%", background: "var(--k-ink)" }}
-          />
-        </button>
       </header>
 
       {/* MOBILE MENU */}
