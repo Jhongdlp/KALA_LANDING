@@ -9,17 +9,30 @@
  * OG image URL is built from it — social crawlers reject relative image paths,
  * so this MUST be the real production origin or link previews render blank.
  *
- * Set NEXT_PUBLIC_SITE_URL in Vercel when a custom domain replaces the
- * *.vercel.app one; the fallback keeps local builds and previews working.
+ * The www host is the canonical one; the apex and the old *.vercel.app origin
+ * redirect to it at the Vercel domain level. The fallback below is the
+ * production value on purpose: if NEXT_PUBLIC_SITE_URL is ever missing from the
+ * environment, the build still emits correct canonicals instead of silently
+ * pointing every URL at a preview origin.
+ *
+ * Override it only for a preview deployment that must self-canonicalise.
  */
 export const SITE_URL = (
-  process.env.NEXT_PUBLIC_SITE_URL ?? "https://kammel-ssh.vercel.app"
+  process.env.NEXT_PUBLIC_SITE_URL ?? "https://www.kammel.app"
 ).replace(/\/$/, "");
 
 export const SITE_NAME = "Kammel";
 
-/** Used as the <title> of the home page and as og:title. */
-export const SITE_TITLE = "Kammel — SSH client, terminal and code editor for Android";
+/**
+ * <title> of the home page and og:title everywhere.
+ *
+ * 59 characters — under the ~60 Google renders before truncating. "Free" is
+ * kept because it is the modifier with the highest click-through in this
+ * category (every competing landing page carries it) and because the app
+ * genuinely is.
+ */
+export const SITE_TITLE =
+  "Kammel — Free SSH client, terminal & code editor for Android";
 
 /**
  * Kept under ~155 characters so Google renders it whole instead of truncating,
@@ -37,18 +50,29 @@ export const SITE_TAGLINE = "Infrastructure. Anywhere.";
  */
 export const SITE_KEYWORDS = [
   "SSH client Android",
+  "free SSH client",
   "mobile SSH client",
   "Android terminal emulator",
   "SFTP client Android",
   "code editor Android",
   "open source SSH client",
   "Linux SSH client",
-  "Flutter SSH app",
+  "JuiceSSH alternative",
+  "Termius alternative",
+  "PuTTY alternative Android",
   "SSH terminal app",
   "Claude Code over SSH",
   "AI coding agent SSH",
   "Kammel",
 ];
+
+/**
+ * Search Console ownership. Verifying by meta tag rather than DNS keeps the
+ * proof with the deployment, so a domain move can't silently unverify the
+ * property. Unset locally — the tag is simply omitted.
+ */
+export const GOOGLE_SITE_VERIFICATION =
+  process.env.NEXT_PUBLIC_GOOGLE_SITE_VERIFICATION;
 
 export const AUTHOR_NAME = "Jhongdlp";
 export const AUTHOR_URL = "https://github.com/Jhongdlp";

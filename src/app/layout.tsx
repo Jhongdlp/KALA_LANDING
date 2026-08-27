@@ -7,6 +7,7 @@ import {
   AUTHOR_NAME,
   AUTHOR_URL,
   BRAND,
+  GOOGLE_SITE_VERIFICATION,
   SITE_DESCRIPTION,
   SITE_KEYWORDS,
   SITE_NAME,
@@ -57,6 +58,18 @@ export const metadata: Metadata = {
   formatDetection: { telephone: false, address: false, email: false },
   alternates: { canonical: "/" },
   manifest: "/manifest.webmanifest",
+  // Only emitted once the token is in the environment; Next drops the key when
+  // the value is undefined.
+  verification: GOOGLE_SITE_VERIFICATION
+    ? { google: GOOGLE_SITE_VERIFICATION }
+    : undefined,
+  // Controls the standalone chrome when the page is saved to an iOS home
+  // screen. "default" keeps the status bar readable over the light background.
+  appleWebApp: {
+    capable: true,
+    title: SITE_NAME,
+    statusBarStyle: "default",
+  },
   openGraph: {
     type: "website",
     siteName: SITE_NAME,
