@@ -80,9 +80,25 @@ export const SITE_KEYWORDS = [
  * Search Console re-checks periodically and revokes ownership if its proof
  * stops resolving, so neither should be removed.
  */
-export const GOOGLE_SITE_VERIFICATION =
-  process.env.NEXT_PUBLIC_GOOGLE_SITE_VERIFICATION ??
-  "qpKaGLMUOaRnDIlwUQ5gmG3pO--ub4F7k8gEj6Qveb8";
+const VERIFICATION_FALLBACK = "qpKaGLMUOaRnDIlwUQ5gmG3pO--ub4F7k8gEj6Qveb8";
+
+/**
+ * Accepts either the bare token or the entire <meta> tag Search Console
+ * displays, because pasting the whole tag into the environment variable is the
+ * obvious mistake and it is one that fails silently: Next escapes the angle
+ * brackets, so the page ships a syntactically valid tag whose content is the
+ * escaped tag itself, and Google simply reports the site as unverified.
+ */
+function verificationToken(raw: string | undefined): string {
+  const value = raw?.trim();
+  if (!value) return VERIFICATION_FALLBACK;
+  // `content="…"` from a pasted tag; otherwise the value is already the token.
+  return value.match(/content\s*=\s*["']([^"']+)["']/i)?.[1] ?? value;
+}
+
+export const GOOGLE_SITE_VERIFICATION = verificationToken(
+  process.env.NEXT_PUBLIC_GOOGLE_SITE_VERIFICATION,
+);
 
 export const AUTHOR_NAME = "Jhongdlp";
 export const AUTHOR_URL = "https://github.com/Jhongdlp";
