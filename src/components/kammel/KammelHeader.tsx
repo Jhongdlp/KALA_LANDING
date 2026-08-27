@@ -128,7 +128,7 @@ export default function KammelHeader({ stars }: { stars?: number | null }) {
             className="k-download"
             // Absolute, not "#download": the anchor only exists on the home
             // page, so from /features this has to navigate there first.
-            href="/#download"
+            href="/download"
             style={{
               fontFamily: MONO,
               fontSize: 11.5,
@@ -280,7 +280,7 @@ export default function KammelHeader({ stars }: { stars?: number | null }) {
           <StarIcon />
         </a>
         <Link
-          href="/#download"
+          href="/download"
           onClick={closeMenu}
           style={{
             marginTop: 8,

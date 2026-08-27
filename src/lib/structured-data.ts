@@ -8,6 +8,7 @@
  */
 import { FAQS } from "./faq";
 import { FEATURE_GROUPS } from "./features";
+import type { Landing } from "./landings";
 import { REPO_URL } from "./github";
 import {
   AUTHOR_NAME,
@@ -167,3 +168,109 @@ export const FEATURES_TITLE =
 
 export const FEATURES_DESCRIPTION =
   "The full feature list: multi-session SSH terminal, SFTP explorer, code editor, git panel, Docker console, port forwarding, agent notifications and hardware-backed key storage.";
+
+
+/**
+ * JSON-LD for a query-intent landing (see lib/landings.ts).
+ *
+ * The nodes that earn their place: WebPage tied to the site, BreadcrumbList
+ * (Google renders the trail instead of the bare URL, and the page shows the
+ * same crumb visibly), and FAQPage built from the page's own questions. The
+ * SoftwareApplication is referenced by @id rather than repeated — it is
+ * described in full on the home page, and restating it on every landing would
+ * be eight competing descriptions of one entity.
+ */
+export function landingJsonLd(landing: Landing) {
+  const url = `${SITE_URL}/${landing.slug}`;
+  return {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "WebPage",
+        "@id": `${url}#webpage`,
+        url,
+        name: landing.title,
+        description: landing.description,
+        inLanguage: "en",
+        isPartOf: { "@id": SITE_ID },
+        about: { "@id": APP_ID },
+        primaryImageOfPage: abs("/icon.png"),
+      },
+      {
+        "@type": "BreadcrumbList",
+        "@id": `${url}#breadcrumb`,
+        itemListElement: [
+          { "@type": "ListItem", position: 1, name: "Home", item: SITE_URL },
+          { "@type": "ListItem", position: 2, name: landing.title, item: url },
+        ],
+      },
+      {
+        "@type": "FAQPage",
+        "@id": `${url}#faq`,
+        isPartOf: { "@id": SITE_ID },
+        mainEntity: landing.faqs.map(({ q, a }) => ({
+          "@type": "Question",
+          name: q,
+          acceptedAnswer: { "@type": "Answer", text: a },
+        })),
+      },
+    ],
+  };
+}
+
+/**
+ * JSON-LD for /download.
+ *
+ * HowTo is the node that matters here — the install steps are the reason the
+ * page exists for "how to install Kammel APK" style queries, and the steps
+ * passed in are the same array the page renders, so the structured data cannot
+ * describe steps a visitor can't see.
+ */
+export function downloadJsonLd(steps: { name: string; text: string }[]) {
+  const url = `${SITE_URL}/download`;
+  return {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "WebPage",
+        "@id": `${url}#webpage`,
+        url,
+        name: `Download ${SITE_NAME} for Android and Linux`,
+        description: SITE_DESCRIPTION,
+        inLanguage: "en",
+        isPartOf: { "@id": SITE_ID },
+        about: { "@id": APP_ID },
+      },
+      {
+        "@type": "BreadcrumbList",
+        "@id": `${url}#breadcrumb`,
+        itemListElement: [
+          { "@type": "ListItem", position: 1, name: "Home", item: SITE_URL },
+          { "@type": "ListItem", position: 2, name: "Download", item: url },
+        ],
+      },
+      {
+        "@type": "HowTo",
+        "@id": `${url}#howto`,
+        name: `How to install ${SITE_NAME} on Android`,
+        description:
+          "Download the APK from GitHub Releases, allow the install, and add your first server.",
+        totalTime: "PT3M",
+        // Sideloading costs nothing; stating it explicitly is what lets the
+        // result carry a "Free" label rather than an unknown cost.
+        estimatedCost: {
+          "@type": "MonetaryAmount",
+          currency: "USD",
+          value: "0",
+        },
+        step: steps.map((s, i) => ({
+          "@type": "HowToStep",
+          position: i + 1,
+          name: s.name,
+          text: s.text,
+          url: `${url}#step-${i + 1}`,
+        })),
+      },
+    ],
+  };
+}

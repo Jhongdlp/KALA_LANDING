@@ -19,10 +19,20 @@ const LINK_HREFS: Record<string, string> = {
   "Source control": "/features#git",
   "Server console": "/features#server",
   Tunnels: "/features#tunnels",
+  // Platform landings. The footer is what keeps these reachable from every
+  // page, so none of them sits more than one click from anywhere on the site.
+  "SSH client for Android": "/ssh-client-android",
+  "Android terminal": "/android-terminal",
+  "SSH client for Linux": "/linux-ssh-client",
+  "Coding agents over SSH": "/claude-code-android",
+  // Comparisons.
+  "vs Termius": "/termius-alternative",
+  "vs JuiceSSH": "/juicessh-alternative",
+  "vs PuTTY": "/putty-alternative-android",
   // Resources.
   Docs: `${REPO_URL}#readme`,
   Changelog: RELEASES_URL,
-  Download: "/#download",
+  Download: "/download",
   // Community.
   GitHub: REPO_URL,
   Issues: `${REPO_URL}/issues`,
@@ -42,6 +52,19 @@ const COLUMNS: { heading: string; links: string[] }[] = [
       "Server console",
       "Tunnels",
     ],
+  },
+  {
+    heading: "Platforms",
+    links: [
+      "SSH client for Android",
+      "Android terminal",
+      "SSH client for Linux",
+      "Coding agents over SSH",
+    ],
+  },
+  {
+    heading: "Compare",
+    links: ["vs Termius", "vs JuiceSSH", "vs PuTTY"],
   },
   {
     heading: "Resources",

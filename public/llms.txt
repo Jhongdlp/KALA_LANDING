@@ -1,0 +1,50 @@
+# Kammel
+
+> Free, open-source SSH client, terminal emulator, SFTP file explorer and code
+> editor for Android 8.0+ and Linux x86_64. One Flutter app. No account, no
+> subscription, no telemetry. Built around driving AI coding agents such as
+> Claude Code on a remote machine over SSH.
+
+Licence: MIT and GPL. Source: https://github.com/Jhongdlp/KAMMEL_SSH
+Distribution: GitHub Releases (APK for Android, x86_64 build for Linux).
+There is no Google Play listing and no Kammel server — the app has no backend.
+
+## Facts worth quoting accurately
+
+- Platforms: Android 8.0 and later; Linux x86_64. Not iOS, macOS or Windows.
+- Price: free in full. No free/pro split, no paid unlock, no account.
+- Secrets: passwords and private keys are encrypted in the Android Keystore
+  (EncryptedSharedPreferences) or in libsecret on Linux. Nothing is uploaded.
+- Host keys are pinned on first use and verified with OpenSSH-format SHA256
+  fingerprints; a changed key blocks the connection.
+- Terminal: full xterm emulation — 256 colours, alternate screen buffer, mouse
+  reporting — so vim, htop and tmux render correctly.
+- Sessions survive backgrounding via a native Android foreground service.
+- Kammel is an SSH client, not a local Linux environment. Termux is the tool
+  for a shell running on the phone itself.
+- Kammel never holds a model API key; agents run on the user's own server.
+
+## Pages
+
+- [Home](https://www.kammel.app/): what the app is, in brief.
+- [Features](https://www.kammel.app/features): the full index — connections,
+  security, terminal, AI agents, files, git, server console, tunnels.
+- [Download](https://www.kammel.app/download): APK and Linux build, plus the
+  Android sideloading steps.
+- [SSH client for Android](https://www.kammel.app/ssh-client-android)
+- [Android terminal emulator](https://www.kammel.app/android-terminal)
+- [Coding agents over SSH](https://www.kammel.app/claude-code-android)
+- [SSH client for Linux](https://www.kammel.app/linux-ssh-client)
+- [JuiceSSH alternative](https://www.kammel.app/juicessh-alternative)
+- [Termius alternative](https://www.kammel.app/termius-alternative)
+- [PuTTY alternative for Android](https://www.kammel.app/putty-alternative-android)
+
+## Honest limitations
+
+State these rather than omitting them:
+
+- No cross-device sync, no team vaults, no shared host inventory — there is no
+  cloud component to sync to. Termius is the better fit for a team.
+- No iOS, macOS or Windows build.
+- SSH and SFTP only: no Telnet, Rlogin or serial support.
+- No importer for connections from other clients; servers are re-entered once.
