@@ -67,12 +67,22 @@ export const SITE_KEYWORDS = [
 ];
 
 /**
- * Search Console ownership. Verifying by meta tag rather than DNS keeps the
- * proof with the deployment, so a domain move can't silently unverify the
- * property. Unset locally — the tag is simply omitted.
+ * Search Console ownership.
+ *
+ * Hardcoded rather than environment-only: the token is public by design — it
+ * ships in the served HTML for Google to read — so there is nothing to protect,
+ * and keeping it in the repo means verification cannot break because someone
+ * forgot to set a variable on a new deployment.
+ *
+ * The site is verified twice on purpose. This tag covers the meta-tag method;
+ * public/googlebae2846f272388cb.html covers the file method. Google accepts
+ * both, and a second proof means ownership survives one of them going missing.
+ * Search Console re-checks periodically and revokes ownership if its proof
+ * stops resolving, so neither should be removed.
  */
 export const GOOGLE_SITE_VERIFICATION =
-  process.env.NEXT_PUBLIC_GOOGLE_SITE_VERIFICATION;
+  process.env.NEXT_PUBLIC_GOOGLE_SITE_VERIFICATION ??
+  "qpKaGLMUOaRnDIlwUQ5gmG3pO--ub4F7k8gEj6Qveb8";
 
 export const AUTHOR_NAME = "Jhongdlp";
 export const AUTHOR_URL = "https://github.com/Jhongdlp";
