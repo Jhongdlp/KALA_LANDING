@@ -48,6 +48,10 @@ const LIGHT = {
   headerborder: "rgba(42,36,27,.10)",
   headershadow: "rgba(42,36,27,.12)",
   headerhairline: "rgba(255,255,255,.55)",
+  // Terminal error text. Picked per theme for contrast, not for hue: the one
+  // red that looks right on the dark background falls to 2.8:1 on the light
+  // one. These are 5.3:1 and 6.7:1 respectively.
+  error: "#9E3B24",
 };
 
 const DARK: typeof LIGHT = {
@@ -92,6 +96,7 @@ const DARK: typeof LIGHT = {
   headerborder: "rgba(236,231,218,.08)",
   headershadow: "rgba(0,0,0,.45)",
   headerhairline: "rgba(236,231,218,.10)",
+  error: "#DE7A5C",
 };
 
 /** localStorage key holding the visitor's last toggle. */
@@ -165,5 +170,6 @@ export function themeVars(theme: ThemeName): Record<string, string> {
     "--k-headerborder": T.headerborder,
     "--k-headershadow": T.headershadow,
     "--k-headerhairline": T.headerhairline,
+    "--k-error": T.error,
   };
 }

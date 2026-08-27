@@ -1300,3 +1300,84 @@ body:has(#screenshot-page) .nextjs-static-indicator-wrapper {
     max-width: 100% !important;
   }
 }
+
+/* ---------- 404 ----------
+
+   The number is the whole page: one focal element, a line of terminal copy
+   under it, and the way out. The motion is a single staggered entrance on a
+   fixed timeline, driven entirely by CSS.
+
+   It deliberately does NOT reuse .lmask / .reveal. Those are gated on
+   `.kammel.is-in`, which React adds after mount — fine for marketing sections,
+   wrong here: if scripting is slow or off, the one page whose job is to hand
+   the visitor a way out would render with an invisible heading and invisible
+   links. */
+.k404-line {
+  display: block;
+  overflow: hidden;
+}
+.k404-line > span {
+  display: block;
+  animation: k404-lineup 1.15s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+@keyframes k404-lineup {
+  0% {
+    transform: translateY(116%);
+  }
+  100% {
+    transform: none;
+  }
+}
+
+.k404-fade {
+  animation: k404-appear 0.9s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+@keyframes k404-appear {
+  0% {
+    opacity: 0;
+    transform: translateY(7px);
+  }
+  100% {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+/* The one thing still moving once the page has settled. It is the only piece
+   of the terminal left, and it is what keeps the page recognisably Kammel. */
+.k404-caret {
+  display: inline-block;
+  width: 9px;
+  height: 1em;
+  margin-left: 6px;
+  vertical-align: text-bottom;
+  /* The accent, not currentColor: this is the only brand colour left on the
+     page, and a blinking terminal cursor is the right thing to spend it on. */
+  background: #8ba678;
+  opacity: 0;
+  animation: k404-caret 1.05s step-end 1.1s infinite;
+}
+@keyframes k404-caret {
+  0%,
+  49% {
+    opacity: 1;
+  }
+  50%,
+  100% {
+    opacity: 0;
+  }
+}
+
+/* Hand over the finished state rather than a faster animation. */
+@media (prefers-reduced-motion: reduce) {
+  .k404-line > span,
+  .k404-fade {
+    animation: none;
+    opacity: 1;
+    transform: none;
+  }
+  .k404-caret {
+    animation: none;
+    opacity: 1;
+  }
+}
