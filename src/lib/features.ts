@@ -463,8 +463,10 @@ export const SPEC_ROWS: { label: string; value: string }[] = [
   { label: "Host keys", value: "SHA256 pinning (TOFU)" },
   { label: "Secret storage", value: "Android Keystore · libsecret" },
   { label: "Built with", value: "Flutter · dartssh2 · xterm" },
-  // The repository ships a single MIT LICENSE file; "MIT & GPL" elsewhere on
-  // the site refers to bundled dependencies, not to this project's own terms.
+  // The repository ships a single MIT LICENSE file, and every page on the site
+  // now says exactly that. Do not reintroduce "MIT & GPL": the GPL applies to
+  // bundled dependencies, not to this project's own terms, and an assistant
+  // repeats whichever licence it reads here.
   { label: "Licence", value: "MIT — open source" },
   { label: "Price", value: "Free. No account, no telemetry" },
 ];

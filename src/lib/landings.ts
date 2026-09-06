@@ -150,7 +150,7 @@ export const LANDINGS: Landing[] = [
     faqs: [
       {
         q: "Is Kammel really free?",
-        a: "Yes. Kammel is free and open source under MIT and GPL. There is no account, no subscription and no feature held behind a paid tier — you get everything by installing the app.",
+        a: "Yes. Kammel is free and open source under the MIT licence. There is no account, no subscription and no feature held behind a paid tier — you get everything by installing the app.",
       },
       {
         q: "Which Android versions are supported?",
@@ -453,7 +453,7 @@ export const LANDINGS: Landing[] = [
         },
         {
           criterion: "Source",
-          kammel: "Open source (MIT / GPL)",
+          kammel: "Open source (MIT)",
           rival: "Closed source",
         },
         {
@@ -493,7 +493,7 @@ export const LANDINGS: Landing[] = [
       },
       {
         q: "Is Kammel free like JuiceSSH's basic tier?",
-        a: "Kammel is free in full. There is no Pro unlock — the source is public under MIT and GPL and every feature ships in the one build.",
+        a: "Kammel is free in full. There is no Pro unlock — the source is public under the MIT licence and every feature ships in the one build.",
       },
     ],
     related: [
@@ -536,7 +536,7 @@ export const LANDINGS: Landing[] = [
       },
       {
         heading: "You can read the source",
-        body: "Kammel is public under MIT and GPL. For a program that holds your private keys, being able to check what it does with them — or hand it to someone who will — is the point.",
+        body: "Kammel is public under the MIT licence. For a program that holds your private keys, being able to check what it does with them — or hand it to someone who will — is the point.",
       },
     ],
     comparison: {
@@ -550,7 +550,7 @@ export const LANDINGS: Landing[] = [
         },
         {
           criterion: "Source code",
-          kammel: "Open source (MIT / GPL)",
+          kammel: "Open source (MIT)",
           rival: "Closed source",
         },
         {
@@ -596,7 +596,7 @@ export const LANDINGS: Landing[] = [
       },
       {
         q: "Does Kammel cost anything later?",
-        a: "No. It is open source under MIT and GPL with no paid tier, and there is no account through which to bill you.",
+        a: "No. It is open source under the MIT licence with no paid tier, and there is no account through which to bill you.",
       },
     ],
     related: [

@@ -6,6 +6,7 @@
  * SoftwareApplication (app rich result, incl. the free-price signal) and
  * FAQPage (expandable Q&A) off the same blob.
  */
+import { HOME_COMPARISON } from "./comparison";
 import { FAQS } from "./faq";
 import { FEATURE_GROUPS } from "./features";
 import type { Landing } from "./landings";
@@ -14,6 +15,7 @@ import {
   AUTHOR_NAME,
   AUTHOR_URL,
   SITE_DESCRIPTION,
+  SITE_KEYWORDS,
   SITE_NAME,
   SITE_URL,
   abs,
@@ -22,6 +24,10 @@ import {
 const ORG_ID = `${SITE_URL}/#organization`;
 const SITE_ID = `${SITE_URL}/#website`;
 const APP_ID = `${SITE_URL}/#app`;
+const SOURCE_ID = `${SITE_URL}/#source`;
+
+/** The repository ships one MIT LICENSE file; see SPEC_ROWS in ./features. */
+const LICENSE_URL = "https://opensource.org/licenses/MIT";
 
 export function homeJsonLd() {
   return {
@@ -45,7 +51,10 @@ export function homeJsonLd() {
         publisher: { "@id": ORG_ID },
       },
       {
-        "@type": "SoftwareApplication",
+        // MobileApplication is the subtype that makes the Android app result
+        // eligible; SoftwareApplication alone describes the Linux build too, so
+        // both are declared rather than picking one.
+        "@type": ["SoftwareApplication", "MobileApplication"],
         "@id": APP_ID,
         name: SITE_NAME,
         alternateName: "Kammel SSH",
@@ -59,7 +68,12 @@ export function homeJsonLd() {
         downloadUrl: `${REPO_URL}/releases/latest`,
         installUrl: `${REPO_URL}/releases/latest`,
         codeRepository: REPO_URL,
-        license: "https://opensource.org/licenses/MIT",
+        // "Built in Flutter" is a differentiator stated all over the prose and
+        // nowhere a machine could read it until these two properties.
+        programmingLanguage: "Dart",
+        runtimePlatform: "Flutter",
+        keywords: SITE_KEYWORDS.join(", "),
+        license: LICENSE_URL,
         isAccessibleForFree: true,
         image: abs("/icon.png"),
         screenshot: [
@@ -73,7 +87,10 @@ export function homeJsonLd() {
           "Full terminal emulator",
           "SFTP file explorer",
           "Syntax-highlighting code editor",
+          "Edit remote files over SFTP without a local copy",
+          "Git panel for staging, diffing, committing and pushing",
           "Docker container management",
+          "Local, remote and SOCKS5 port forwarding",
           "Run AI coding agents such as Claude Code over SSH",
         ],
         author: {
@@ -81,6 +98,7 @@ export function homeJsonLd() {
           name: AUTHOR_NAME,
           url: AUTHOR_URL,
         },
+        maintainer: { "@id": ORG_ID },
         publisher: { "@id": ORG_ID },
         // Price 0 is the signal that drives the "Free" label in app results.
         offers: {
@@ -89,6 +107,50 @@ export function homeJsonLd() {
           priceCurrency: "USD",
           availability: "https://schema.org/InStock",
         },
+      },
+      {
+        // "Open source" is the single most repeated claim on the site, and
+        // until this node it was only ever a word in a sentence. targetProduct
+        // is the property that ties the repository to the app by @id.
+        "@type": "SoftwareSourceCode",
+        "@id": SOURCE_ID,
+        name: `${SITE_NAME} source code`,
+        description:
+          "The full source of the Kammel client, published under the MIT licence.",
+        codeRepository: REPO_URL,
+        url: REPO_URL,
+        programmingLanguage: { "@type": "ComputerLanguage", name: "Dart" },
+        runtimePlatform: "Flutter",
+        license: LICENSE_URL,
+        isAccessibleForFree: true,
+        targetProduct: { "@id": APP_ID },
+        author: { "@type": "Person", name: AUTHOR_NAME, url: AUTHOR_URL },
+      },
+      {
+        // The comparison table, made machine-readable. An answer engine that
+        // ingests the JSON-LD gets the matrix without having to parse the
+        // <table>, and both are generated from HOME_COMPARISON, so the two can
+        // never disagree. Each item folds one row into a sentence naming every
+        // product, because a bare value ("Closed source") is unattributable
+        // once it is lifted out of the table.
+        "@type": "ItemList",
+        "@id": `${SITE_URL}/#comparison`,
+        name: `${SITE_NAME} compared with ${HOME_COMPARISON.columns
+          .slice(1)
+          .join(" and ")}`,
+        description: HOME_COMPARISON.note,
+        about: { "@id": APP_ID },
+        isPartOf: { "@id": SITE_ID },
+        numberOfItems: HOME_COMPARISON.rows.length,
+        itemListOrder: "https://schema.org/ItemListOrderAscending",
+        itemListElement: HOME_COMPARISON.rows.map((row, i) => ({
+          "@type": "ListItem",
+          position: i + 1,
+          name: row.criterion,
+          description: HOME_COMPARISON.columns
+            .map((column, c) => `${column}: ${row.values[c]}`)
+            .join(". "),
+        })),
       },
       {
         "@type": "FAQPage",

@@ -122,6 +122,9 @@ export default function KammelHero() {
           style={{ ...headlineStyle, position: "relative", zIndex: 10 }}
         >
           <HeadlineLines />
+          <span className="sr-only">
+            {" "}— Free Open-Source SSH Client, Terminal & Code Editor for Android and Linux
+          </span>
         </h1>
         {/* WEAVE: duplicate top line rendered IN FRONT of the phone so the type
             drapes over its shoulders. Purely decorative, so it must NOT be an

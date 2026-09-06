@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { CSSProperties } from "react";
 import { ACCENT, ANTON, ARCHIVO, MONO } from "./theme";
+import ComparisonTable from "./ComparisonTable";
 import { LATEST_APK_URL, REPO_URL } from "@/lib/github";
 import { getLanding, type Comparison, type Landing, type LandingSection } from "@/lib/landings";
 
@@ -31,7 +32,7 @@ export default function LandingPage({ landing }: { landing: Landing }) {
       {landing.sections.map((section, i) => (
         <Section key={section.heading} section={section} index={i + 1} />
       ))}
-      {landing.comparison && <ComparisonTable comparison={landing.comparison} />}
+      {landing.comparison && <ComparisonSection comparison={landing.comparison} />}
       <Faqs landing={landing} />
       <Cta />
       <Related landing={landing} />
@@ -206,31 +207,11 @@ function Section({
 }
 
 /**
- * A real <table> with a scroll container, not a grid of divs: the comparison is
- * tabular data, screen readers announce the row and column headers, and the
- * overflow wrapper is what stops a seven-row table forcing the whole page to
- * scroll sideways on a phone.
+ * The table itself lives in ComparisonTable, shared with the home page's
+ * three-way matrix. This adapts the two-column `Comparison` the landings are
+ * written in — nothing in landings.ts had to change to reuse it.
  */
-function ComparisonTable({ comparison }: { comparison: Comparison }) {
-  const cell: CSSProperties = {
-    padding: "14px 16px",
-    borderTop: "1px solid var(--k-bentoborder)",
-    fontSize: 14,
-    lineHeight: 1.5,
-    color: "var(--k-paratext)",
-    verticalAlign: "top",
-  };
-  const head: CSSProperties = {
-    padding: "0 16px 12px",
-    textAlign: "left",
-    fontFamily: MONO,
-    fontSize: 10.5,
-    letterSpacing: ".2em",
-    textTransform: "uppercase",
-    color: "var(--k-bentofaint)",
-    whiteSpace: "nowrap",
-  };
-
+function ComparisonSection({ comparison }: { comparison: Comparison }) {
   return (
     <section style={{ borderTop: "1px solid var(--k-secborder)", padding: sectionPad }}>
       <h2
@@ -246,59 +227,15 @@ function ComparisonTable({ comparison }: { comparison: Comparison }) {
       >
         Kammel vs {comparison.rival}
       </h2>
-      <div style={{ overflowX: "auto" }}>
-        <table
-          style={{
-            width: "100%",
-            minWidth: 620,
-            borderCollapse: "collapse",
-            textAlign: "left",
-          }}
-        >
-          <thead>
-            <tr>
-              <th scope="col" style={head} />
-              <th scope="col" style={{ ...head, color: ACCENT }}>
-                Kammel
-              </th>
-              <th scope="col" style={head}>
-                {comparison.rival}
-              </th>
-            </tr>
-          </thead>
-          <tbody>
-            {comparison.rows.map((row) => (
-              <tr key={row.criterion}>
-                <th
-                  scope="row"
-                  style={{
-                    ...cell,
-                    fontFamily: ARCHIVO,
-                    fontWeight: 700,
-                    color: "var(--k-ink)",
-                    whiteSpace: "nowrap",
-                  }}
-                >
-                  {row.criterion}
-                </th>
-                <td style={{ ...cell, color: "var(--k-sectext)" }}>{row.kammel}</td>
-                <td style={cell}>{row.rival}</td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
-      </div>
-      <p
-        style={{
-          marginTop: 20,
-          maxWidth: 720,
-          fontSize: 12.5,
-          lineHeight: 1.6,
-          color: "var(--k-bentofaint)",
-        }}
-      >
-        {comparison.note}
-      </p>
+      <ComparisonTable
+        caption={`Kammel compared with ${comparison.rival}`}
+        columns={["Kammel", comparison.rival]}
+        rows={comparison.rows.map((row) => ({
+          criterion: row.criterion,
+          values: [row.kammel, row.rival],
+        }))}
+        note={comparison.note}
+      />
     </section>
   );
 }

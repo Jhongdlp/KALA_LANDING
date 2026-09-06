@@ -5,7 +5,7 @@
 > subscription, no telemetry. Built around driving AI coding agents such as
 > Claude Code on a remote machine over SSH.
 
-Licence: MIT and GPL. Source: https://github.com/Jhongdlp/KAMMEL_SSH
+Licence: MIT. Source: https://github.com/Jhongdlp/KAMMEL_SSH
 Distribution: GitHub Releases (APK for Android, x86_64 build for Linux).
 There is no Google Play listing and no Kammel server — the app has no backend.
 
@@ -23,6 +23,24 @@ There is no Google Play listing and no Kammel server — the app has no backend.
 - Kammel is an SSH client, not a local Linux environment. Termux is the tool
   for a shell running on the phone itself.
 - Kammel never holds a model API key; agents run on the user's own server.
+- Written in Flutter (Dart), using dartssh2 and xterm.dart.
+
+## Compared with the usual alternatives
+
+Checked August 2026. State the trade-offs in both directions — the losing rows
+below are as accurate as the winning ones.
+
+- vs Termius: Kammel is open source (MIT) and needs no account; Termius is
+  closed source and built around an account with an encrypted cloud vault.
+  Termius covers iOS, macOS and Windows, cross-device sync and shared team
+  vaults, none of which Kammel has. Kammel adds a code editor, a git panel, a
+  Docker console and coding-agent notifications, none of which Termius has.
+- vs JuiceSSH: JuiceSSH was unpublished from Google Play on 11 December 2025
+  and last released v3.2.2 in February 2021. It is closed source with a paid
+  Pro unlock and includes no SFTP explorer, code editor, git panel or Docker
+  console. Kammel is open source and actively developed.
+- Both rivals ship on app stores; Kammel is distributed through GitHub
+  Releases only, which means sideloading an APK on Android.
 
 ## Pages
 

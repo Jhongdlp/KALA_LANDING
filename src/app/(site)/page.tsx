@@ -3,6 +3,7 @@ import KammelHero from "@/components/kammel/KammelHero";
 import KammelStair from "@/components/kammel/KammelStair";
 import KammelInPractice from "@/components/kammel/KammelInPractice";
 import KammelBento from "@/components/kammel/KammelBento";
+import KammelComparison from "@/components/kammel/KammelComparison";
 import KammelDownload from "@/components/kammel/KammelDownload";
 import KammelFaq from "@/components/kammel/KammelFaq";
 import { homeJsonLd } from "@/lib/structured-data";
@@ -28,6 +29,7 @@ export default function Home() {
       <KammelStair />
       <KammelInPractice />
       <KammelBento />
+      <KammelComparison />
       <KammelDownload />
       <KammelFaq />
     </main>

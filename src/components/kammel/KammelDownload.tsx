@@ -75,7 +75,7 @@ export default async function KammelDownload() {
       icon: <BranchIcon />,
       name: "From source",
       sub: "Flutter SDK",
-      meta: `git · Flutter 3.x · ${release?.version ?? "GPL"}`,
+      meta: `git · Flutter 3.x · ${release?.version ?? "MIT"}`,
       primaryLabel: "View on GitHub",
       primaryHref: REPO_URL,
       ghost: true,
@@ -179,7 +179,7 @@ export default async function KammelDownload() {
           color: "var(--k-statstext)",
         }}
       >
-        <span>MIT &amp; GPL</span>
+        <span>MIT licence</span>
         <span>No account</span>
         <span>No telemetry</span>
         <span>Android 8+</span>

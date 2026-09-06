@@ -94,7 +94,7 @@ export default function DownloadPage() {
             color: "var(--k-paratext)",
           }}
         >
-          Free and open source under MIT and GPL. Every release is published on
+          Free and open source under the MIT licence. Every release is published on
           GitHub — no account to create, nothing to unlock, and the app checks
           the same feed for updates once it is installed.
         </p>

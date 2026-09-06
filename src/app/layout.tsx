@@ -45,7 +45,6 @@ export const metadata: Metadata = {
     template: `%s — ${SITE_NAME}`,
   },
   description: SITE_DESCRIPTION,
-  keywords: SITE_KEYWORDS,
   applicationName: SITE_NAME,
   category: "technology",
   authors: [{ name: AUTHOR_NAME, url: AUTHOR_URL }],
